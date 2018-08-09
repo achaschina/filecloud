@@ -17,8 +17,6 @@ import { NewDirDialogComponent } from './new-dir-dialog/new-dir-dialog.component
 import { UploadFilesDialogComponent } from './upload-files-dialog/upload-files-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { DxButtonModule } from 'devextreme-angular';
-import { DxContextMenuModule } from 'devextreme-angular';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
@@ -45,8 +43,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatToolbarModule,
     MatDividerModule,
-    DxButtonModule,
-    DxContextMenuModule,
     MatSidenavModule
   ],
   providers: [],

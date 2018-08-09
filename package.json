@@ -23,8 +23,6 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
-    "devextreme": "^18.1.5",
-    "devextreme-angular": "^18.1.5",
     "hammerjs": "^2.0.8",
     "ng2-file-upload": "^1.3.0",
     "ngx-uploader": "^6.0.2",

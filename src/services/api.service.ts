@@ -28,7 +28,7 @@ export class ApiService {
 
   // Создает новую папку
   createDir (path: string) {
-    return this.httpClient.put(this.apiYandex + '/resources?path= ' + path, httpOptions);
+    return this.httpClient.put(this.apiYandex + '/resources?path=' + path, httpOptions);
   }
 
 }
