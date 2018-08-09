@@ -160,7 +160,7 @@
       </div>
     </th>
     <td mat-cell *matCellDef="let item">
-      <div class="dir" (click)="goPath(item.name, item.type)" [matMenuTriggerFor]="contextmenu" (contextmenu)="this.openContext()" align="middle">
+      <div class="dir" (click)="goPath(item.name, item.type)" align="middle">
         <img src={{item.preview}} height="30" width="30" align="middle">
       </div>
     </td>
@@ -178,7 +178,7 @@
       <div align="left">По наименованию</div>
     </th>
     <td mat-cell *matCellDef="let item">
-      <div class="dir" (click)="goPath(item.name, item.type)" (contextmenu)="this.openContext()">{{ item.name }}</div>
+      <div class="dir" (click)="goPath(item.name, item.type)">{{ item.name }}</div>
     </td>
   </ng-container>
 
@@ -187,7 +187,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
       <div align="left">По дате изменения</div>
     </th>
-    <td mat-cell *matCellDef="let item"> {{item.modified.slice(0,10)}} я </td>
+    <td mat-cell *matCellDef="let item" [matMenuTriggerFor]="contextmenu" (contextmenu)="$event ? openContext() : null"> {{item.modified.slice(0,10)}} я </td>
   </ng-container>
 
   <!-- File Size Column -->

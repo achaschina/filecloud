@@ -132,7 +132,6 @@ export class ResourcesComponent implements OnInit {
   }
 
   openContext() {
-    console.log(this.triggerContext.menu.xPosition);
     this.triggerContext.openMenu();
   }
 }
