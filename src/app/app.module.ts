@@ -18,13 +18,16 @@ import { UploadFilesDialogComponent } from './upload-files-dialog/upload-files-d
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatChipsModule } from '@angular/material/chips';
+import { CurrentDirChipsComponent } from './current-dir-chips/current-dir-chips.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResourcesComponent,
     NewDirDialogComponent,
-    UploadFilesDialogComponent
+    UploadFilesDialogComponent,
+    CurrentDirChipsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatToolbarModule,
     MatDividerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
