@@ -1,0 +1,13 @@
+<!-- Диалог Новая папка -->
+<div>
+  <h3>Новая папка</h3>
+  <mat-form-field>
+    <mat-label>Имя папки:</mat-label>
+    <input [(ngModel)]="data.path" matInput>
+  </mat-form-field>
+</div>
+
+<div class="button">
+  <button mat-button (click)="onClick()">Создать</button>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+</div>
