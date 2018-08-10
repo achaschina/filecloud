@@ -45,7 +45,7 @@ export class ResourcesComponent implements OnInit {
     this.getResource();
   }
 
-  //Диалог создания новой папки
+  // Диалог создания новой папки
   openDialog(): void {
     const dialogRef = this.dialog.open(NewDirDialogComponent, {
       width: '500px',
@@ -63,7 +63,7 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  //Получить ресурсы с сервера
+  // Получить ресурсы с сервера
   public getResource() {
     this.apiService.getResource(this.currentdir, this.mysort)
       .subscribe((data: Resource) => {
@@ -74,10 +74,10 @@ export class ResourcesComponent implements OnInit {
       });
   }
 
-  //Назначение иконок элементам (папкам, файлам)
+  // Назначение иконок элементам (папкам, файлам)
   private previewPrepare() {
     for (const item of this.resources._embedded.items) {
-       //if (item.preview) {
+       // if (item.preview) {
        //  item.preview = item.preview.replace('https:','');
        //  break;
       // }
@@ -86,14 +86,14 @@ export class ResourcesComponent implements OnInit {
     return;
   }
 
-  //Перейти к папке
+  // Перейти к папке
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
     this.currentdir = this.currentdir + path + this.dir;
     this.getResource();
   }
 
-  //Навигация Назад
+  // Навигация Назад
   public goBack() {
     if (this.currentdir === '/') { return; }
     const lastdir = this.currentdir.slice(0, this.currentdir.length - 1).lastIndexOf('/');
@@ -101,25 +101,25 @@ export class ResourcesComponent implements OnInit {
     this.getResource();
   }
 
-  //Сортировка по имени
+  // Сортировка по имени
   public inverseSortName() {
     (this.mysort === '&sort=name') ? this.mysort = '&sort=-name' : this.mysort = '&sort=name';
     this.getResource();
   }
 
-  //Сортировка по дате изменения
+  // Сортировка по дате изменения
   public inverseSortDate() {
     (this.mysort === '&sort=modified') ? this.mysort = '&sort=-modified' : this.mysort = '&sort=modified';
     this.getResource();
   }
 
-  //Сортировка по размеру файла
+  // Сортировка по размеру файла
   public inverseSortSize() {
     (this.mysort === '&sort=size') ? this.mysort = '&sort=-size' : this.mysort = '&sort=size';
     this.getResource();
   }
 
-  //Выделение всех папок и файлов
+  // Выделение всех папок и файлов
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dirItems.data.length;

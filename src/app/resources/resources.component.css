@@ -12,6 +12,17 @@
   flex: 1 1 auto;
 }
 
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 6vw;
+}
+
 .mat-column-select {
   overflow: initial;
 }
