@@ -2,6 +2,11 @@
   <!-- Боковая панель -->
   <mat-drawer mode="side" opened>
     <!-- Боковой Тулбар -->
+
+    <!-- Дерево папок -->
+    <!--TODO Дерево папок-->
+    <app-dir-tree-view></app-dir-tree-view>
+
     <mat-toolbar>
       <mat-toolbar-row>
         <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button>
@@ -222,7 +227,7 @@
 
       <!-- Owner Column -->
       <ng-container matColumnDef="owner">
-        <th mat-header-cell *matHeaderCellDef> Владелец </th>
+        <th mat-header-cell *matHeaderCellDef><b>Владелец</b></th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
           <div class="noneselect"><b>я</b></div>

@@ -8,6 +8,7 @@ import { Resource } from '../../models/IResource';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DirTreeViewComponent } from '../dir-tree-view/dir-tree-view.component';
 
 @Component({
   selector: 'app-resources',
