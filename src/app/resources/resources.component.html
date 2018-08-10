@@ -211,8 +211,9 @@
                     <img src='../../assets/images/back.png' height="30" width="30" align="middle">
           </div>
         </th>
-        <td mat-cell *matCellDef="let item">
-          <div class="dir" (click)="goPath(item.name, item.type)" align="middle">
+        <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
+          <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+          <div (dblclick)="goPath(item.name, item.type)" align="middle">
             <img src={{item.preview}} height="30" width="30" align="middle">
           </div>
         </td>
@@ -221,7 +222,10 @@
       <!-- Owner Column -->
       <ng-container matColumnDef="owner">
         <th mat-header-cell *matHeaderCellDef> Владелец </th>
-        <td mat-cell *matCellDef="let item">я</td>
+        <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
+          <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+          я
+        </td>
       </ng-container>
 
       <!-- Name Column -->
@@ -229,8 +233,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <div align="left">По наименованию</div>
         </th>
-        <td mat-cell *matCellDef="let item">
-          <div class="dir" (click)="goPath(item.name, item.type)">{{ item.name }}</div>
+        <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
+          <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+          <div (dblclick)="goPath(item.name, item.type)">{{ item.name }}</div>
         </td>
       </ng-container>
 
@@ -239,8 +244,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <div align="left">По дате изменения</div>
         </th>
-        <td mat-cell *matCellDef="let item" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" (contextmenu)="menuTrigger.openMenu()">
-          {{item.modified.slice(0,10)}} я
+        <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
+          <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
+            {{item.modified.slice(0,10)}} я
         </td>
       </ng-container>
 
@@ -249,7 +255,10 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <div align="left">Размер файла</div>
         </th>
-        <td mat-cell *matCellDef="let item"> {{(item.size/1024).toFixed().toString().replace('NaN', '-')}} </td>
+        <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
+          <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+            {{(item.size/1024).toFixed().toString().replace('NaN', '-')}}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
