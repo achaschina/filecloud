@@ -225,40 +225,40 @@
         <th mat-header-cell *matHeaderCellDef> Владелец </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div class="noneselect">я</div>
+          <div class="noneselect"><b>я</b></div>
         </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <div align="left">По наименованию</div>
+          <div align="left"><b>По наименованию</b></div>
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div (dblclick)="goPath(item.name, item.type)" class="noneselect">{{ item.name }}</div>
+          <div (dblclick)="goPath(item.name, item.type)" class="noneselect"><b>{{ item.name }}</b></div>
         </td>
       </ng-container>
 
       <!-- Last Modified Column -->
       <ng-container matColumnDef="modified">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <div align="left">По дате изменения</div>
+          <div align="left"><b>По дате изменения</b></div>
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
-          <div class="noneselect">{{item.modified.slice(0,10)}} я</div>
+          <div class="noneselect"><b>{{item.modified.slice(0,10)}} я</b></div>
         </td>
       </ng-container>
 
       <!-- File Size Column -->
       <ng-container matColumnDef="size">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <div align="left">Размер файла</div>
+          <div align="left"><b>Размер файла</b></div>
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div class="noneselect">{{(item.size/1024).toFixed().toString().replace('NaN', '-')}}</div>
+          <div class="noneselect"><b>{{(item.size/1024).toFixed().toString().replace('NaN', '-')}}</b></div>
         </td>
       </ng-container>
 
