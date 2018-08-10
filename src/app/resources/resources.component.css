@@ -23,6 +23,10 @@
   padding: 6vw;
 }
 
+.menu-trigger {
+  display: none;
+}
+
 .mat-column-select {
   overflow: initial;
 }

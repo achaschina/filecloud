@@ -2,7 +2,7 @@
   Основной компонент для обработки ресурсов пользователя
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Resource } from '../../models/IResource';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
@@ -38,8 +38,15 @@ export class ResourcesComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    public dialog: MatDialog
-  ) {  }
+    public dialog: MatDialog,
+    private zone: NgZone
+  ) {
+    this.zone.runOutsideAngular(() => {
+      document.addEventListener('contextmenu', (e: MouseEvent) => {
+        e.preventDefault();
+      });
+    });
+  }
 
   ngOnInit() {
     this.getResource();

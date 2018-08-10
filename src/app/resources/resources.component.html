@@ -1,17 +1,61 @@
 <mat-drawer-container autosize>
-
   <!-- Боковая панель -->
-  <mat-drawer class="example-sidenav" mode="side" opened>
+  <mat-drawer mode="side" opened>
+    <!-- Боковой Тулбар -->
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button>
+        <!-- Меню Создать -->
+        <mat-menu #menuCreate="matMenu">
+          <button mat-menu-item (click)="openDialog()">
+            <mat-icon>create_new_folder</mat-icon>
+            <span>Новая папка</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>
+            <mat-icon>cloud_upload</mat-icon>
+            <span>Загрузить файлы...</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>cloud_upload</mat-icon>
+            <span>Загрузить папку...</span>
+          </button>
+        </mat-menu>
 
+      </mat-toolbar-row>
+
+      <!-- Боковое меню -->
+      <mat-toolbar-row>
+        <button mat-button><mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Мой диск</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-button><mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-button><mat-icon>access_time</mat-icon>&nbsp;&nbsp;&nbsp;Недавние</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-button><mat-icon>grade</mat-icon>&nbsp;&nbsp;&nbsp;Помеченные</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-button><mat-icon>delete</mat-icon>&nbsp;&nbsp;&nbsp;Корзина</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-divider></mat-divider>
+        <button mat-button><mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Хранилище</button>
+      </mat-toolbar-row>
+
+    </mat-toolbar>
   </mat-drawer>
 
   <!-- Центральная часть -->
   <mat-drawer-container>
     <div class="example-sidenav-content">
+
       <!-- Панель инструментов -->
       <mat-toolbar>
         <!-- Контекстно меню -->
-        <mat-menu #contextmenu="matMenu" mat-menu-trigger-for="contextmenu">
+        <mat-menu #contextmenu="matMenu">
           <button mat-menu-item>
             <mat-icon>visibility</mat-icon>
             <span>Предварительный просмотр</span>
@@ -195,7 +239,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <div align="left">По дате изменения</div>
         </th>
-        <td mat-cell *matCellDef="let item" [matMenuTriggerFor]="contextmenu" (contextmenu)="openContext()"> {{item.modified.slice(0,10)}} я </td>
+        <td mat-cell *matCellDef="let item" (contextmenu)="contextmenu">
+          {{item.modified.slice(0,10)}} я
+        </td>
       </ng-container>
 
       <!-- File Size Column -->
