@@ -85,10 +85,9 @@ export class ResourcesComponent implements OnInit {
   // Назначение иконок элементам (папкам, файлам)
   private previewPrepare() {
     for (const item of this.resources._embedded.items) {
-       // if (item.preview) {
-       //  item.preview = item.preview.replace('https:','');
-       //  break;
-      // }
+        // if (item.preview) {
+         // break;
+       // }
       item.preview = '../../assets/images/' + item.type + '.png';
     }
     return;

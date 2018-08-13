@@ -16,13 +16,13 @@ export class DynamicFlatNode {
  */
 export class DynamicDatabase {
   dataMap = new Map<string, string[]>([
-    ['Фрукты', ['Apple', 'Orange', 'Banana']],
+    ['Мой диск', ['Яблоки', 'Orange', 'Banana']],
     ['Овощи', ['Tomato', 'Potato', 'Onion']],
     ['Яблоки', ['Fuji', 'Macintosh']],
     ['Огурцы', ['Yellow', 'White', 'Purple']]
   ]);
 
-  rootLevelNodes: string[] = [];
+  rootLevelNodes: string[] = ['Мой диск'];
 
   /** Initial data from database */
   initialData(): DynamicFlatNode[] {

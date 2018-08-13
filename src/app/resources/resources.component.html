@@ -5,10 +5,13 @@
 
     <!-- Дерево папок -->
     <!--TODO Дерево папок-->
-    <app-dir-tree-view></app-dir-tree-view>
 
     <mat-toolbar>
-      <mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <mat-toolbar>
+
         <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button>
         <!-- Меню Создать -->
         <mat-menu #menuCreate="matMenu">
@@ -27,12 +30,10 @@
           </button>
         </mat-menu>
 
-      </mat-toolbar-row>
-
+      <div>
+        <app-dir-tree-view></app-dir-tree-view>
+      </div>
       <!-- Боковое меню -->
-      <mat-toolbar-row>
-        <button mat-button><mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Мой диск</button>
-      </mat-toolbar-row>
       <mat-toolbar-row>
         <button mat-button><mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне</button>
       </mat-toolbar-row>
@@ -230,7 +231,7 @@
         <th mat-header-cell *matHeaderCellDef><b>Владелец</b></th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div class="noneselect"><b>я</b></div>
+          <div class="noneselect">я</div>
         </td>
       </ng-container>
 
@@ -241,7 +242,7 @@
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div (dblclick)="goPath(item.name, item.type)" class="noneselect"><b>{{ item.name }}</b></div>
+          <div (dblclick)="goPath(item.name, item.type)" class="noneselect">{{ item.name }}</div>
         </td>
       </ng-container>
 
@@ -252,7 +253,7 @@
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
-          <div class="noneselect"><b>{{item.modified.slice(0,10)}} я</b></div>
+          <div class="noneselect">{{item.modified.slice(0,10)}} я</div>
         </td>
       </ng-container>
 
@@ -263,7 +264,7 @@
         </th>
         <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
           <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-          <div class="noneselect"><b>{{(item.size/1024).toFixed().toString().replace('NaN', '-')}}</b></div>
+          <div class="noneselect">{{(item.size/1024).toFixed().toString().replace('NaN', '-')}}</div>
         </td>
       </ng-container>
 
