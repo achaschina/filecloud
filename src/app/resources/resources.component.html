@@ -15,12 +15,12 @@
 
         <!-- Меню Создать -->
         <mat-menu #menuCreate="matMenu" [overlapTrigger]="false">
-          <button mat-menu-item (click)="openDialog()">
+          <button mat-menu-item (click)="openNewDirDialog()">
             <mat-icon>create_new_folder</mat-icon>
             <span>Новая папка</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="openUploadDialog()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить файлы...</span>
           </button>
@@ -30,9 +30,6 @@
           </button>
         </mat-menu>
 
-      <div>
-
-      </div>
       <!-- Боковое меню -->
       <mat-toolbar-row>
         <mat-chip-list>
@@ -53,15 +50,15 @@
       </mat-toolbar-row>
       <mat-toolbar-row>
         <mat-divider></mat-divider>
-        <button mat-button><mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Хранилище</button>
+        <button mat-button> <mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Хранилище</button>
       </mat-toolbar-row>
 
     </mat-toolbar>
   </mat-drawer>
 
   <!-- Центральная часть -->
-  <mat-drawer-container>
 
+  <mat-drawer-container>
 
     <div class="example-sidenav-content">
 
@@ -87,12 +84,12 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="false">
-            <button mat-menu-item (click)="openDialog()">
+            <button mat-menu-item (click)="openNewDirDialog()">
               <mat-icon>create_new_folder</mat-icon>
               <span>Новая папка</span>
             </button>
             <mat-divider></mat-divider>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="openUploadDialog()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить файлы...</span>
             </button>

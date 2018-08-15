@@ -8,6 +8,7 @@ import { Resource } from '../../models/IResource';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
 
 @Component({
   selector: 'app-resources',
@@ -57,7 +58,7 @@ export class ResourcesComponent implements OnInit {
   }
 
   // Диалог создания новой папки
-  openDialog(): void {
+  openNewDirDialog(): void {
     const dialogRef = this.dialog.open(NewDirDialogComponent, {
       width: '500px',
       data: { path: this.newDirPath  }
@@ -71,6 +72,13 @@ export class ResourcesComponent implements OnInit {
         console.log(this.otvet);
         this.getResource();
       }
+    });
+  }
+
+  // Диалог загрузки файлов
+  openUploadDialog(): void {
+    const dialogRef = this.dialog.open(UploadFilesDialogComponent, {
+      width: '500px'
     });
   }
 
@@ -142,7 +150,4 @@ export class ResourcesComponent implements OnInit {
       this.dirItems.data.forEach(row => this.selection.select(row));
   }
 
-  openContext() {
-    this.triggerContext.openMenu();
-  }
 }

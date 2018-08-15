@@ -23,6 +23,7 @@ import { MatProgressBarModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 @NgModule({
   declarations: [
@@ -53,11 +54,12 @@ import { MatChipsModule } from '@angular/material/chips';
     MatProgressBarModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    NgxUploaderModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [NewDirDialogComponent]
+  entryComponents: [NewDirDialogComponent, UploadFilesDialogComponent]
 })
 
 export class AppModule { }
