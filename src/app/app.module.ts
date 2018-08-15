@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgxUploaderModule } from 'ngx-uploader';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { NgxUploaderModule } from 'ngx-uploader';
     MatCardModule,
     MatSlideToggleModule,
     MatChipsModule,
-    NgxUploaderModule
+    NgxUploaderModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],

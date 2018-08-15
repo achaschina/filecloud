@@ -9,6 +9,7 @@ import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-resources',
@@ -17,6 +18,9 @@ import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-
 })
 
 export class ResourcesComponent implements OnInit {
+
+  searchControl = new FormControl();
+  searchOptions: string[] = ['Файлы PDF:', 'Текстовые документы:', 'Таблицы:', 'Презентации:', 'Изображения:', 'Видео:'];
 
   initialSelection = [];
   allowMultiSelect = true;
