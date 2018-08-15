@@ -20,6 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTreeModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatProgressBarModule } from '@angular/material';
     MatDividerModule,
     MatSidenavModule,
     MatTreeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

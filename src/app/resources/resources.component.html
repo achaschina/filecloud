@@ -7,6 +7,7 @@
     <!--TODO Дерево папок-->
 
     <mat-toolbar></mat-toolbar>
+    <mat-toolbar></mat-toolbar>
 
     <mat-toolbar>
 
@@ -54,86 +55,100 @@
 
   <!-- Центральная часть -->
   <mat-drawer-container>
+
+
     <div class="example-sidenav-content">
 
       <!-- Панель инструментов -->
       <mat-toolbar>
 
-        Мой диск: {{currentdir}}
+        <div>
+          <!-- Панель поиска -->
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>&nbsp;Поиск на диске</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput type="search" placeholder="Поиск на диске">
+            </mat-form-field>
+        </div>
 
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openDialog()">
-            <mat-icon>create_new_folder</mat-icon>
-            <span>Новая папка</span>
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item>
-            <mat-icon>cloud_upload</mat-icon>
-            <span>Загрузить файлы...</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>cloud_upload</mat-icon>
-            <span>Загрузить папку...</span>
-          </button>
-        </mat-menu>
 
-        <span class="example-spacer"></span>
+        <mat-toolbar-row>
+          Мой диск: {{currentdir}}
 
-          <button mat-icon-button color="basic">
-            <mat-icon>link</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
-          <button mat-icon-button color="basic">
-            <mat-icon>person_add</mat-icon>
-          </button>
-          <button mat-icon-button color="basic">
-            <mat-icon>visibility</mat-icon>
-          </button>
-          <button mat-icon-button color="basic">
-            <mat-icon>delete</mat-icon>
-          </button>
-
-        <!-- Дополнительно меню -->
-          <button mat-icon-button [matMenuTriggerFor]="anymenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #anymenu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>arrow_forward</mat-icon>
-              <span>Переместить в...</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>grade</mat-icon>
-              <span>Добавить пометку</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>create</mat-icon>
-              <span>Переименовать...</span>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openDialog()">
+              <mat-icon>create_new_folder</mat-icon>
+              <span>Новая папка</span>
             </button>
             <mat-divider></mat-divider>
             <button mat-menu-item>
-              <mat-icon>info</mat-icon>
-              <span>Показать свойства</span>
+              <mat-icon>cloud_upload</mat-icon>
+              <span>Загрузить файлы...</span>
             </button>
             <button mat-menu-item>
-              <mat-icon>history</mat-icon>
-              <span>Управление версиями...</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>file_copy</mat-icon>
-              <span>Создать копию</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>cloud_download</mat-icon>
-              <span>Скачать</span>
+              <mat-icon>cloud_upload</mat-icon>
+              <span>Загрузить папку...</span>
             </button>
           </mat-menu>
 
-        <button mat-icon-button color="basic">
-          <mat-icon>info</mat-icon>
-        </button>
+          <span class="example-spacer"></span>
+
+            <button mat-icon-button color="basic">
+              <mat-icon>link</mat-icon>
+            </button>
+            <button mat-icon-button color="basic">
+              <mat-icon>person_add</mat-icon>
+            </button>
+            <button mat-icon-button color="basic">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="basic">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          <!-- Дополнительно меню -->
+            <button mat-icon-button [matMenuTriggerFor]="anymenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #anymenu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>arrow_forward</mat-icon>
+                <span>Переместить в...</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>grade</mat-icon>
+                <span>Добавить пометку</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>create</mat-icon>
+                <span>Переименовать...</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item>
+                <mat-icon>info</mat-icon>
+                <span>Показать свойства</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>history</mat-icon>
+                <span>Управление версиями...</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>file_copy</mat-icon>
+                <span>Создать копию</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>cloud_download</mat-icon>
+                <span>Скачать</span>
+              </button>
+            </mat-menu>
+
+          <button mat-icon-button color="basic">
+            <mat-icon>info</mat-icon>
+          </button>
+        </mat-toolbar-row>
       </mat-toolbar>
     </div>
 
