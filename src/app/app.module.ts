@@ -21,6 +21,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTreeModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatCardModule } from '@angular/material';
     MatSidenavModule,
     MatTreeModule,
     MatProgressBarModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent],
