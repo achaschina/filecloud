@@ -2,13 +2,12 @@
   Основной компонент для обработки ресурсов пользователя
  */
 
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Resource } from '../../models/IResource';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DirTreeViewComponent } from '../dir-tree-view/dir-tree-view.component';
 
 @Component({
   selector: 'app-resources',
@@ -47,6 +46,10 @@ export class ResourcesComponent implements OnInit {
         e.preventDefault();
       });
     });
+  }
+
+  copyTo(): Resource {
+    return this.resources;
   }
 
   ngOnInit() {

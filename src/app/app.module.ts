@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCheckboxModule, MatSortModule, MatTree} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSortModule, MatTree} from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
@@ -18,19 +18,15 @@ import { UploadFilesDialogComponent } from './upload-files-dialog/upload-files-d
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatChipsModule } from '@angular/material/chips';
-import { CurrentDirChipsComponent } from './current-dir-chips/current-dir-chips.component';
-import { MatTreeModule } from '@angular/material/tree';
-import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
+import { MatTreeModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResourcesComponent,
     NewDirDialogComponent,
-    UploadFilesDialogComponent,
-    CurrentDirChipsComponent,
-    DirTreeViewComponent
+    UploadFilesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,8 +46,8 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
     MatToolbarModule,
     MatDividerModule,
     MatSidenavModule,
-    MatChipsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
