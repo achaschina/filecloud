@@ -33,7 +33,7 @@
       <!-- Боковое меню -->
       <mat-toolbar-row>
         <mat-chip-list>
-          <mat-chip [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
+          <mat-chip class="dir" [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
         </mat-chip-list>
       </mat-toolbar-row>
       <mat-toolbar-row>
@@ -101,6 +101,7 @@
 
           <span class="example-spacer"></span>
 
+          <!-- Дополнительные кнопки, скрыты, пока не выбраны папки -->
           <div [style.visibility] = "selection.hasValue() ? 'visible' : 'hidden'">
             <button mat-icon-button>
               <mat-icon>link</mat-icon>
@@ -114,12 +115,13 @@
             <button mat-icon-button>
               <mat-icon>delete</mat-icon>
             </button>
-          </div>
-
-          <!-- Дополнительно меню -->
             <button mat-icon-button [matMenuTriggerFor]="anymenu">
               <mat-icon>more_vert</mat-icon>
             </button>
+          </div>
+
+          <!-- Дополнительно меню -->
+
             <mat-menu #anymenu="matMenu" [overlapTrigger]="false">
               <button mat-menu-item>
                 <mat-icon>arrow_forward</mat-icon>
@@ -152,7 +154,7 @@
               </button>
             </mat-menu>
 
-          <button mat-icon-button color="basic">
+            <button mat-icon-button color="basic">
             <mat-icon>info</mat-icon>
           </button>
         </mat-toolbar-row>
