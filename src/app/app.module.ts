@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCheckboxModule, MatSortModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSortModule, MatTree} from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
@@ -18,6 +18,8 @@ import { UploadFilesDialogComponent } from './upload-files-dialog/upload-files-d
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTreeModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatToolbarModule,
     MatDividerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTreeModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

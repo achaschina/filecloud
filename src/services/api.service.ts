@@ -16,7 +16,7 @@ const httpOptions = {
 export class ApiService {
 
   private apiYandex = 'https://cloud-api.yandex.net:443/v1/disk';
-  private limit = '&limit=1000';
+  private limit = '&limit=1000000';
 
 
   constructor(private httpClient: HttpClient) { }
