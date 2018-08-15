@@ -76,4 +76,11 @@ th.mat-sort-header-sorted {
 
 .mat-form-field.search-field {
   font-size: 12px;
+  width: 70vw;
+  padding: 10px;
+  alignment: center;
+}
+
+.div.search-field {
+  vertical-align: middle;
 }
