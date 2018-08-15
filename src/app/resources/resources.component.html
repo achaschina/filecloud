@@ -11,7 +11,8 @@
 
     <mat-toolbar>
 
-        <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button>
+        <!-- <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button> -->
+
         <!-- Меню Создать -->
         <mat-menu #menuCreate="matMenu" [overlapTrigger]="false">
           <button mat-menu-item (click)="openDialog()">
@@ -33,6 +34,11 @@
 
       </div>
       <!-- Боковое меню -->
+      <mat-toolbar-row>
+        <mat-chip-list>
+          <mat-chip [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
+        </mat-chip-list>
+      </mat-toolbar-row>
       <mat-toolbar-row>
         <button mat-button><mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне</button>
       </mat-toolbar-row>
