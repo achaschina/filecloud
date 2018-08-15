@@ -13,7 +13,7 @@
 
         <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button>
         <!-- Меню Создать -->
-        <mat-menu #menuCreate="matMenu">
+        <mat-menu #menuCreate="matMenu" [overlapTrigger]="false">
           <button mat-menu-item (click)="openDialog()">
             <mat-icon>create_new_folder</mat-icon>
             <span>Новая папка</span>
@@ -80,7 +80,7 @@
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
+          <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="false">
             <button mat-menu-item (click)="openDialog()">
               <mat-icon>create_new_folder</mat-icon>
               <span>Новая папка</span>
@@ -115,7 +115,7 @@
             <button mat-icon-button [matMenuTriggerFor]="anymenu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #anymenu="matMenu">
+            <mat-menu #anymenu="matMenu" [overlapTrigger]="false">
               <button mat-menu-item>
                 <mat-icon>arrow_forward</mat-icon>
                 <span>Переместить в...</span>
@@ -159,7 +159,7 @@
     <!-- Табличная часть -->
     <div class="example-container mat-elevation-z8" id = "tableView">
       <!-- Контекстно меню -->
-      <mat-menu #contextmenu="matMenu">
+      <mat-menu #contextmenu="matMenu" [overlapTrigger]="false">
         <button mat-menu-item>
           <mat-icon>visibility</mat-icon>
           <span>Предварительный просмотр</span>
