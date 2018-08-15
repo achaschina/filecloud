@@ -31,13 +31,13 @@ export class UploadFilesDialogComponent implements OnInit {
   onUploadOutput(output: UploadOutput): void {
     if (output.type === 'allAddedToQueue') { // when all files added in queue
       // uncomment this if you want to auto upload files when added
-      // const event: UploadInput = {
-      //   type: 'uploadAll',
-      //   url: '/upload',
-      //   method: 'POST',
-      //   data: { foo: 'bar' }
-      // };
-      // this.uploadInput.emit(event);
+       const event: UploadInput = {
+         type: 'uploadAll',
+         url: '/upload',
+         method: 'POST',
+         data: { foo: 'bar' }
+       };
+       this.uploadInput.emit(event);
     } else if (output.type === 'addedToQueue'  && typeof output.file !== 'undefined') { // add file to array when added
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {

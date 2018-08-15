@@ -101,10 +101,11 @@
 
           <span class="example-spacer"></span>
 
+          <div [style.visibility] = "selection.hasValue() ? 'visible' : 'hidden'">
             <button mat-icon-button>
               <mat-icon>link</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button mat-icon-button [hidden]="false">
               <mat-icon>person_add</mat-icon>
             </button>
             <button mat-icon-button>
@@ -113,6 +114,7 @@
             <button mat-icon-button>
               <mat-icon>delete</mat-icon>
             </button>
+          </div>
 
           <!-- Дополнительно меню -->
             <button mat-icon-button [matMenuTriggerFor]="anymenu">
