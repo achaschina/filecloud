@@ -26,6 +26,12 @@ export class ApiService {
       return this.httpClient.get<Resource>(this.apiYandex + '/resources?path=' + path + this.limit + sort, httpOptions);
   }
 
+  // Возвращает корзину
+  getTrashResource (path: string, sort: string) {
+    return this.httpClient.get<Resource>(this.apiYandex + '/trash/resources?path=' + path + this.limit + sort, httpOptions);
+  }
+
+
   // Создает новую папку
   createDir (path: string) {
     return this.httpClient.put(this.apiYandex + '/resources?path=' + path, httpOptions);

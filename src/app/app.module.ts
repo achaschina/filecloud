@@ -25,13 +25,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgxUploaderModule } from 'ngx-uploader';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResourcesComponent,
     NewDirDialogComponent,
-    UploadFilesDialogComponent
+    UploadFilesDialogComponent,
+    DirTreeViewComponent
   ],
   imports: [
     BrowserModule,
