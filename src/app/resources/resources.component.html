@@ -88,7 +88,7 @@
 
           <button mat-button (click)="goPath('/', 'dir')">Мой диск</button>
           <div *ngFor="let path of pathRouter">
-            <button mat-button *ngIf="path.length > 0">{{path}}</button>
+            <div *ngIf="path.length > 0"><button mat-button >{{path}}</button></div>
           </div>
 
           <button mat-icon-button [matMenuTriggerFor]="menu">
