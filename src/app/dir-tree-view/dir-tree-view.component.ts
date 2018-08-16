@@ -5,8 +5,6 @@ import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
 import {Resource, ResourceList} from '../../models/IResource';
-import {MatTableDataSource} from '@angular/material';
-import {timeout} from 'q';
 
 /** Flat node with expandable and level information */
 export class DynamicFlatNode {
@@ -84,7 +82,7 @@ export class DynamicDataSource {
     }
   }
 
-  /**
+   /**
    * Toggle the node, remove from display list
    */
   toggleNode(node: DynamicFlatNode, expand: boolean) {
@@ -171,6 +169,11 @@ export class DirTreeViewComponent implements OnInit {
         this.dirMapping(this.resources.path, this.resources._embedded);
         this.dataSource.data = this.database.initialData(this.rootLevelNodes, new Map<string, string[]>(this.dataMap));
         console.log(this.dataMap);
+
+        for (const item of this.dataMap.get(this.resources.path)) {
+          this.updateData(item);
+        }
+
       });
   }
 
@@ -181,7 +184,11 @@ export class DirTreeViewComponent implements OnInit {
         this.resources = { ... data };
         this.dirMapping(this.resources.path, this.resources._embedded);
         this.database.addNode(path, this.dataMap.get(path));
-        // this.dataSource.data = this.database.initialData(this.rootLevelNodes, this.dataMap);
+
+        for (const item of this.dataMap.get(this.resources.path)) {
+          this.updateData(item);
+        }
+
       });
   }
 
