@@ -193,6 +193,7 @@ export class DirTreeViewComponent implements OnInit {
 
   // Обрезать имя папки
   getName(item: any) {
+    if (item.toString() === 'disk:/') { return 'Мой диск'; }
     const name: string[] = item.toString().split('/');
     return name[name.length - 1];
   }
