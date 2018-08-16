@@ -188,8 +188,13 @@ export class DirTreeViewComponent implements OnInit {
         for (const item of this.dataMap.get(this.resources.path)) {
           this.updateData(item);
         }
-
       });
+  }
+
+  // Обрезать имя папки
+  getName(item: any) {
+    const name: string[] = item.toString().split('/');
+    return name[name.length - 1];
   }
 
   // Вывод в консоль отладочной информации

@@ -6,7 +6,7 @@
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
-    <mat-icon>folder</mat-icon>&nbsp;{{node.item.toString().replace('disk:/', '')}}
+    <mat-icon>folder</mat-icon>&nbsp;{{getName(node.item)}}
     <mat-progress-bar *ngIf="node.isLoading"
                       mode="indeterminate"
                       class="example-tree-progress-bar"></mat-progress-bar>
