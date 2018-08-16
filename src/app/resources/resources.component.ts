@@ -11,6 +11,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
 import { FormControl } from '@angular/forms';
 
+export interface PathElement {
+  id: number;
+  name: string;
+}
+
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
@@ -26,15 +31,18 @@ export class ResourcesComponent implements OnInit {
   allowMultiSelect = true;
   selection = new SelectionModel<Resource>(this.allowMultiSelect, this.initialSelection);
 
-  public displayedColumns: string[] = ['select', 'type', 'name', 'owner', 'modified',  'size'];
+  private displayedColumns: string[] = ['select', 'type', 'name', 'owner', 'modified',  'size'];
 
-  public resources: Resource;
-  public dirItems: any;
+  private resources: Resource;
+  private dirItems: any;
   private otvet: any;
 
   private dir = '/';
-  public pathRouter: string[] = [];
-  public currentdir = '/';
+
+  private pathRouter: string[] = [];
+  private mapRoute: PathElement[] = [];
+
+  private currentdir = '/';
   private mysort = '&sort=name';
 
   newDirPath = '';
@@ -95,9 +103,35 @@ export class ResourcesComponent implements OnInit {
         this.previewPrepare();
         this.dirItems = new MatTableDataSource(this.resources._embedded.items);
         this.dirItems.sort = this.sort;
-        this.pathRouter = this.currentdir.split('/');
-        console.log(this.pathRouter);
+        this.pathMapping();
       });
+  }
+
+  // Текущий путь в массив
+  private pathMapping() {
+    this.pathRouter = this.currentdir.split('/');
+    this.mapRoute = [];
+    let i = 0;
+    for (const path of this.pathRouter) {
+      if (path.length > 0) {
+        this.mapRoute.push({
+          id: i,
+          name: path
+        });
+        i++;
+      }
+    }
+  }
+
+  // Текущий путь из массивы
+  public currentDir(index: number) {
+    this.currentdir = '';
+    for (const path of this.mapRoute) {
+      this.currentdir = this.currentdir + this.dir + path.name;
+      if (path.id === index) { break; }
+    }
+    this.currentdir += this.dir;
+    this.getResource();
   }
 
   // Назначение иконок элементам (папкам, файлам)
@@ -155,6 +189,11 @@ export class ResourcesComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dirItems.data.forEach(row => this.selection.select(row));
+  }
+
+  // Вывод в консоль отладочной информации
+  log(info: any) {
+    console.log(info);
   }
 
 }
