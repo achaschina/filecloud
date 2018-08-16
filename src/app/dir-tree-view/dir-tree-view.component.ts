@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
 import {Resource, ResourceList} from '../../models/IResource';
 import {MatTableDataSource} from '@angular/material';
+import {timeout} from 'q';
 
 /** Flat node with expandable and level information */
 export class DynamicFlatNode {
@@ -27,6 +28,10 @@ export class DynamicDatabase {
     this.rootLevelNodes = rootLevelNodes;
     this.dataMap = dataMap;
     return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
+  }
+
+  addNode(path: string, items: string[]) {
+    this.dataMap.set(path, items);
   }
 
   getChildren(node: string): string[] | undefined {
@@ -144,6 +149,7 @@ export class DirTreeViewComponent implements OnInit {
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
   dirMapping(path: string, list: ResourceList) {
+    if (this.dataMap.get(path)) { return; }
     let str: string[] = [];
     for (const item of list.items) {
       if (item.type === 'dir') {
@@ -163,8 +169,19 @@ export class DirTreeViewComponent implements OnInit {
         console.log(this.rootLevelNodes);
         console.log(this.resources);
         this.dirMapping(this.resources.path, this.resources._embedded);
+        this.dataSource.data = this.database.initialData(this.rootLevelNodes, new Map<string, string[]>(this.dataMap));
         console.log(this.dataMap);
-        this.dataSource.data = this.database.initialData(this.rootLevelNodes, this.dataMap);
+      });
+  }
+
+
+  updateData(path: string) {
+    this.apiService.getResource(path, '&sort=name')
+      .subscribe((data: Resource) => {
+        this.resources = { ... data };
+        this.dirMapping(this.resources.path, this.resources._embedded);
+        this.database.addNode(path, this.dataMap.get(path));
+        // this.dataSource.data = this.database.initialData(this.rootLevelNodes, this.dataMap);
       });
   }
 
