@@ -85,7 +85,11 @@
 
 
         <mat-toolbar-row>
-          Мой диск: {{currentdir}}
+
+          <button mat-button (click)="goPath('/', 'dir')">Мой диск</button>
+          <div *ngFor="let path of pathRouter">
+            <button mat-button *ngIf="path.length > 0">{{path}}</button>
+          </div>
 
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>keyboard_arrow_down</mat-icon>

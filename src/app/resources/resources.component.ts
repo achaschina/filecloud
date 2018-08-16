@@ -33,6 +33,7 @@ export class ResourcesComponent implements OnInit {
   private otvet: any;
 
   private dir = '/';
+  public pathRouter: string[] = [];
   public currentdir = '/';
   private mysort = '&sort=name';
 
@@ -94,6 +95,8 @@ export class ResourcesComponent implements OnInit {
         this.previewPrepare();
         this.dirItems = new MatTableDataSource(this.resources._embedded.items);
         this.dirItems.sort = this.sort;
+        this.pathRouter = this.currentdir.split('/');
+        console.log(this.pathRouter);
       });
   }
 
@@ -111,7 +114,7 @@ export class ResourcesComponent implements OnInit {
   // Перейти к папке
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
-    this.currentdir = this.currentdir + path + this.dir;
+    path === '/' ? this.currentdir = path : this.currentdir = this.currentdir + path + this.dir;
     this.getResource();
   }
 
