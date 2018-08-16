@@ -4,17 +4,16 @@
     <!-- Боковой Тулбар -->
 
     <!-- Дерево папок -->
-    <!--TODO Дерево папок-->
 
     <mat-toolbar>
       <img src='../../assets/images/logo.png' height="50" align="left"><h2><b>Диск</b></h2>
     </mat-toolbar>
+
     <mat-toolbar></mat-toolbar>
 
     <mat-toolbar>
-
-        <!-- <button mat-stroked-button [mat-menu-trigger-for]="menuCreate">Создать</button> -->
-
+      <mat-chip-list>
+        <mat-chip class="dir" [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
         <!-- Меню Создать -->
         <mat-menu #menuCreate="matMenu" [overlapTrigger]="false">
           <button mat-menu-item (click)="openNewDirDialog()">
@@ -31,13 +30,13 @@
             <span>Загрузить папку...</span>
           </button>
         </mat-menu>
+      </mat-chip-list>
+    </mat-toolbar>
 
+    <app-dir-tree></app-dir-tree>
+
+    <mat-toolbar>
       <!-- Боковое меню -->
-      <mat-toolbar-row>
-        <mat-chip-list>
-          <mat-chip class="dir" [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
-        </mat-chip-list>
-      </mat-toolbar-row>
       <mat-toolbar-row>
         <button mat-button><mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне</button>
       </mat-toolbar-row>
@@ -56,7 +55,7 @@
       </mat-toolbar-row>
 
     </mat-toolbar>
-    <app-dir-tree></app-dir-tree>
+
   </mat-drawer>
 
   <!-- Центральная часть -->

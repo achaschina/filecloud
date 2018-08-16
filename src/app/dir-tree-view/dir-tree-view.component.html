@@ -1,4 +1,4 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="background: #f5f5f5">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
     <button mat-icon-button
             [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle (click)="updateData(node.item)">
