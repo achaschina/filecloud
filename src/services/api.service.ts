@@ -1,5 +1,5 @@
 /*
-  Сервис взаимодействия с Яндекс.Диск АПИ
+  Сервис взаимодействия с АПИ FileCloud server
  */
 
 import { Injectable } from '@angular/core';
@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders } from '@angular/common/http';
 import {Resource} from '../models/IResource';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Authorization': 'OAuth AQAAAAAPAYo0AAUhYoql2hOqfUfIt9mB5K0BCVk' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -15,26 +15,32 @@ const httpOptions = {
 })
 export class ApiService {
 
-  private apiYandex = 'https://cloud-api.yandex.net:443/v1/disk';
-  private limit = '&limit=1000000';
+  private apiCloud = 'http://localhost:3030/';
+  private section = 'files/';
+  private methodList = 'list/';
 
 
   constructor(private httpClient: HttpClient) { }
 
   // Возвращает файлы и папки пользователя. Формат данных описан в ../models/IResource
-  getResource (path: string, sort: string) {
-      return this.httpClient.get<Resource>(this.apiYandex + '/resources?path=' + path + this.limit + sort, httpOptions);
+  getResource (path: string, email: string) {
+      return this.httpClient.get<Resource>(this.apiCloud + this.section + this.methodList + email + path, httpOptions);
   }
 
+  /*
+    В разработке
   // Возвращает корзину
   getTrashResource (path: string, sort: string) {
-    return this.httpClient.get<Resource>(this.apiYandex + '/trash/resources?path=' + path + this.limit + sort, httpOptions);
+    return this.httpClient.get<Resource>(this.apiCloud + '/trash/resources?path=' + path + this.limit + sort, httpOptions);
   }
 
 
   // Создает новую папку
   createDir (path: string) {
-    return this.httpClient.put(this.apiYandex + '/resources?path=' + path, httpOptions);
+    return this.httpClient.put(this.apiCloud + '/resources?path=' + path, httpOptions);
   }
+
+   */
+
 
 }
