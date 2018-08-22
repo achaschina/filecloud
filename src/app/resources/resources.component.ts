@@ -79,7 +79,7 @@ export class ResourcesComponent implements OnInit {
         this.newDirPath = result;
         // console.log(this.currentdir + this.newDirPath);
         this.apiService.createDir(this.currentdir + this.newDirPath, this.currentUser).subscribe(
-          (data) => console.log(data)
+          (data) => this.getResource()
         );
         this.getResource();
       }

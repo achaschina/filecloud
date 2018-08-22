@@ -223,7 +223,7 @@
         </button>
       </mat-menu>
 
-      <table mat-table [dataSource]="dirTable" matSort class="mat-elevation-z8">
+      <table mat-table [dataSource]="dirTable" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear class="mat-elevation-z8">
 
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
@@ -269,7 +269,7 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header matSortStart = "desc">
             <div align="left"><b>По наименованию</b></div>
           </th>
           <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
