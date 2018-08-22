@@ -5,8 +5,8 @@ export interface Resource {
   name: string;
   path: string;
   size: number;
-  created: any;
-  updated: any;
+  created: Date;
+  updated: Date;
   extension: string;
   type: string;
   folder: boolean;

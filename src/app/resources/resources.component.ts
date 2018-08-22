@@ -4,29 +4,16 @@
 
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import {MatDialog, MatMenuTrigger, MatSort, MatTableDataSource} from '@angular/material';
+import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
 import { FormControl } from '@angular/forms';
+import {Resource} from '../../models/IResource';
 
 export interface PathElement {
   id: number;
   name: string;
-}
-
-// Модель данных
-export interface Resource {
-  id: number;
-  fileUid: string;
-  name: string;
-  path: string;
-  size: number;
-  created: Date;
-  updated: Date;
-  extension: string;
-  type: string;
-  folder: boolean;
 }
 
 @Component({
@@ -90,6 +77,10 @@ export class ResourcesComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         this.newDirPath = result;
+        // console.log(this.currentdir + this.newDirPath);
+        this.apiService.createDir(this.currentdir + this.newDirPath, this.currentUser).subscribe(
+          (data) => console.log(data)
+        );
         this.getResource();
       }
     });

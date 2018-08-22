@@ -4,10 +4,16 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Resource } from '../models/IResource';
+import {Observable} from 'rxjs';
+
+
+export interface FolderParams {
+  path: string;
+  email: string;
+}
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -18,6 +24,7 @@ export class ApiService {
   private apiCloud = 'http://localhost:3030/';
   private section = 'files/';
   private methodList = 'list/';
+  private methodCreateFolder = 'createfolder';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -27,6 +34,22 @@ export class ApiService {
       const getUrl = this.apiCloud + this.section + this.methodList + email + path;
       console.log(getUrl);
       return this.httpClient.get(getUrl);
+  }
+
+  // Создает новую папку
+  createDir (path: string, email: string): Observable<FolderParams> {
+    const putUrl = this.apiCloud + this.section + this.methodCreateFolder;
+    const folder: FolderParams = {
+      path: path,
+      email: email
+    }
+    return this.httpClient.post<FolderParams>(putUrl, folder, {
+      headers: { 'Content-Type': 'application/json' },
+      params: {
+        path: path,
+        email: email
+      }
+    });
   }
 
   /*
