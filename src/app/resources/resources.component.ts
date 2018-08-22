@@ -107,6 +107,7 @@ export class ResourcesComponent implements OnInit {
     this.apiService.getResource(this.currentdir, this.currentUser)
       .subscribe((data: Resource[]) => {
         this.resources = { ... data };
+        this.dirItems = [];
         for (const item in this.resources) {
           this.resources[item].created = new Date(this.resources[item].created);
           this.resources[item].updated = new Date(this.resources[item].updated);
@@ -150,6 +151,7 @@ export class ResourcesComponent implements OnInit {
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
     path === '/' ? this.currentdir = path : this.currentdir = this.currentdir + path + this.dir;
+    console.log(this.currentdir);
     this.getResource();
   }
 

@@ -25,6 +25,7 @@ export class ApiService {
   // Возвращает файлы и папки пользователя. Формат данных описан в ../models/IResource
   getResource (path: string, email: string) {
       const getUrl = this.apiCloud + this.section + this.methodList + email + path;
+      console.log(getUrl);
       return this.httpClient.get(getUrl);
   }
 
