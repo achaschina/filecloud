@@ -74,7 +74,7 @@ export class ResourcesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
       if (result !== undefined) {
         this.newDirPath = result;
         // console.log(this.currentdir + this.newDirPath);
@@ -104,10 +104,10 @@ export class ResourcesComponent implements OnInit {
           this.resources[item].updated = new Date(this.resources[item].updated);
           this.dirItems.push(this.resources[item]);
         }
-        console.log(this.dirItems);
+        // console.log(this.dirItems);
         this.dirTable = new MatTableDataSource(this.dirItems);
         this.dirTable.sort = this.sort;
-        console.log(this.dirTable);
+        // console.log(this.dirTable);
         this.pathMapping();
       });
   }
@@ -143,7 +143,7 @@ export class ResourcesComponent implements OnInit {
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
     path === '/' ? this.currentdir = path : this.currentdir = this.currentdir + path + this.dir;
-    console.log(this.currentdir);
+    // console.log(this.currentdir);
     this.getResource();
   }
 

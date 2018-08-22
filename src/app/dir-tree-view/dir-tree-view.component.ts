@@ -25,6 +25,8 @@ export class DynamicDatabase {
   initialData(rootLevelNodes: string[], dataMap: Map<string, string[]>): DynamicFlatNode[] {
     this.rootLevelNodes = rootLevelNodes;
     this.dataMap = dataMap;
+    console.log(this.rootLevelNodes);
+    console.log(this.dataMap);
     return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
   }
 
@@ -130,7 +132,7 @@ export class DirTreeViewComponent implements OnInit {
 
   }
 
-  private resources: Resource;
+  private resources: Resource[];
 
   treeControl: FlatTreeControl<DynamicFlatNode>;
 
@@ -148,46 +150,45 @@ export class DirTreeViewComponent implements OnInit {
 
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
-  dirMapping(path: string, list: any) {
+  dirMapping(path: string, list: Resource[]) {
     if (this.dataMap.get(path)) { return; }
     let str: string[] = [];
-    for (const item of list.items) {
-      if (item.type === 'dir') {
+    for (const item in list) {
+      if (list[item].folder) {
         str = this.dataMap.get(path);
         if (!str) { str = []; }
-        str.push(item.path);
+        str.push(list[item].path);
         this.dataMap.set(path, str);
       }
     }
   }
 
-  ngOnInit() {/*
+  ngOnInit() {
     this.apiService.getResource('/', this.currentUser)
       .subscribe((data: any) => {
         this.resources = { ... data };
-        this.rootLevelNodes.push(this.resources.path);
+        this.rootLevelNodes.push('Мой диск:/');
         console.log(this.rootLevelNodes);
-        console.log(this.resources);
-        this.dirMapping(this.resources.path, this.currentUser);
+        // console.log(this.resources);
+        this.dirMapping('Мой диск:/', this.resources);
         this.dataSource.data = this.database.initialData(this.rootLevelNodes, new Map<string, string[]>(this.dataMap));
         console.log(this.dataMap);
 
-        for (const item of this.dataMap.get(this.resources.path)) {
+        for (const item of this.dataMap.get('Мой диск:/')) {
+          console.log(item);
           this.updateData(item);
         }
 
-      });*/
+      });
   }
 
-
   updateData(path: string) {
-    this.apiService.getResource(path, '&sort=name')
+    this.apiService.getResource(path, this.currentUser)
       .subscribe((data: any) => {
         this.resources = { ... data };
-        this.dirMapping(this.resources.path, this.currentUser);
+        this.dirMapping(path, this.resources);
         this.database.addNode(path, this.dataMap.get(path));
-
-        for (const item of this.dataMap.get(this.resources.path)) {
+        for (const item of this.dataMap.get(path)) {
           this.updateData(item);
         }
       });
