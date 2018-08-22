@@ -40,7 +40,7 @@ export class ResourcesComponent implements OnInit {
   private dir = '/';
 
   private pathRouter: string[] = [];
-  private mapRoute: PathElement[] = [];
+  mapRoute: PathElement[] = [];
 
   private currentdir = '/';
   private currentUser = 'admin@mail.com';
@@ -108,6 +108,7 @@ export class ResourcesComponent implements OnInit {
         this.dirTable = new MatTableDataSource(this.dirItems);
         this.dirTable.sort = this.sort;
         console.log(this.dirTable);
+        this.pathMapping();
       });
   }
 
