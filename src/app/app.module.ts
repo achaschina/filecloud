@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatSortModule, MatTree} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatSortModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';

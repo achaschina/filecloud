@@ -4,8 +4,7 @@
 
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Resource } from '../../models/IResource';
-import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
+import {MatDialog, MatMenuTrigger, MatSort, MatTableDataSource} from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
@@ -14,6 +13,20 @@ import { FormControl } from '@angular/forms';
 export interface PathElement {
   id: number;
   name: string;
+}
+
+// Модель данных
+export interface Resource {
+  id: number;
+  fileUid: string;
+  name: string;
+  path: string;
+  size: number;
+  created: Date;
+  updated: Date;
+  extension: string;
+  type: string;
+  folder: boolean;
 }
 
 @Component({
@@ -25,17 +38,17 @@ export interface PathElement {
 export class ResourcesComponent implements OnInit {
 
   searchControl = new FormControl();
-  searchOptions: string[] = ['Файлы PDF:', 'Текстовые документы:', 'Таблицы:', 'Презентации:', 'Изображения:', 'Видео:'];
+  public searchOptions: string[] = ['Файлы PDF:', 'Текстовые документы:', 'Таблицы:', 'Презентации:', 'Изображения:', 'Видео:'];
 
   initialSelection = [];
   allowMultiSelect = true;
   selection = new SelectionModel<Resource>(this.allowMultiSelect, this.initialSelection);
 
-  private displayedColumns: string[] = ['select', 'type', 'name', 'owner', 'modified',  'size'];
+  public displayedColumns: string[] = ['select', 'type', 'name', 'owner', 'modified',  'size'];
 
-  private resources: Resource;
-  private dirItems: any;
-  private otvet: any;
+  resources: Resource[] = [];
+  dirItems: Resource[] = [];
+  dirTable;
 
   private dir = '/';
 
@@ -43,7 +56,7 @@ export class ResourcesComponent implements OnInit {
   private mapRoute: PathElement[] = [];
 
   private currentdir = '/';
-  private mysort = '&sort=name';
+  private currentUser = 'admin@mail.com';
 
   newDirPath = '';
 
@@ -62,10 +75,6 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  copyTo(): Resource {
-    return this.resources;
-  }
-
   ngOnInit() {
     this.getResource();
   }
@@ -81,8 +90,6 @@ export class ResourcesComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         this.newDirPath = result;
-        this.otvet = this.apiService.createDir(this.currentdir + this.newDirPath);
-        console.log(this.otvet);
         this.getResource();
       }
     });
@@ -97,13 +104,18 @@ export class ResourcesComponent implements OnInit {
 
   // Получить ресурсы с сервера
   public getResource() {
-    this.apiService.getResource(this.currentdir, this.mysort)
-      .subscribe((data: Resource) => {
+    this.apiService.getResource(this.currentdir, this.currentUser)
+      .subscribe((data: Resource[]) => {
         this.resources = { ... data };
-        this.previewPrepare();
-        this.dirItems = new MatTableDataSource(this.resources._embedded.items);
-        this.dirItems.sort = this.sort;
-        this.pathMapping();
+        for (const item in this.resources) {
+          this.resources[item].created = new Date(this.resources[item].created);
+          this.resources[item].updated = new Date(this.resources[item].updated);
+          this.dirItems.push(this.resources[item]);
+        }
+        console.log(this.dirItems);
+        this.dirTable = new MatTableDataSource(this.dirItems);
+        this.dirTable.sort = this.sort;
+        console.log(this.dirTable);
       });
   }
 
@@ -134,17 +146,6 @@ export class ResourcesComponent implements OnInit {
     this.getResource();
   }
 
-  // Назначение иконок элементам (папкам, файлам)
-  private previewPrepare() {
-    for (const item of this.resources._embedded.items) {
-        // if (item.preview) {
-         // break;
-       // }
-      item.preview = '../../assets/images/' + item.type + '.png';
-    }
-    return;
-  }
-
   // Перейти к папке
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
@@ -160,35 +161,17 @@ export class ResourcesComponent implements OnInit {
     this.getResource();
   }
 
-  // Сортировка по имени
-  public inverseSortName() {
-    (this.mysort === '&sort=name') ? this.mysort = '&sort=-name' : this.mysort = '&sort=name';
-    this.getResource();
-  }
-
-  // Сортировка по дате изменения
-  public inverseSortDate() {
-    (this.mysort === '&sort=modified') ? this.mysort = '&sort=-modified' : this.mysort = '&sort=modified';
-    this.getResource();
-  }
-
-  // Сортировка по размеру файла
-  public inverseSortSize() {
-    (this.mysort === '&sort=size') ? this.mysort = '&sort=-size' : this.mysort = '&sort=size';
-    this.getResource();
-  }
-
   // Выделение всех папок и файлов
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dirItems.data.length;
+    const numRows = this.dirTable.data.length;
     return numSelected === numRows;
   }
 
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dirItems.data.forEach(row => this.selection.select(row));
+       this.dirTable.data.forEach(row => this.selection.select(row));
   }
 
   // Вывод в консоль отладочной информации

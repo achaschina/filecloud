@@ -3,11 +3,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders } from '@angular/common/http';
-import {Resource} from '../models/IResource';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Resource } from '../models/IResource';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' })
 };
 
 @Injectable({
@@ -24,7 +24,8 @@ export class ApiService {
 
   // Возвращает файлы и папки пользователя. Формат данных описан в ../models/IResource
   getResource (path: string, email: string) {
-      return this.httpClient.get<Resource>(this.apiCloud + this.section + this.methodList + email + path, httpOptions);
+      const getUrl = this.apiCloud + this.section + this.methodList + email + path;
+      return this.httpClient.get(getUrl);
   }
 
   /*

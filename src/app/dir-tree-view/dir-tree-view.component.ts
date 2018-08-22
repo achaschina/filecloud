@@ -4,7 +4,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
-import {Resource, ResourceList} from '../../models/IResource';
+import { Resource } from '../../models/IResource';
 
 /** Flat node with expandable and level information */
 export class DynamicFlatNode {
@@ -140,13 +140,15 @@ export class DirTreeViewComponent implements OnInit {
 
   rootLevelNodes: string[] = [];
 
+  private currentUser = 'admin@mail.com';
+
   getLevel = (node: DynamicFlatNode) => node.level;
 
   isExpandable = (node: DynamicFlatNode) => node.expandable;
 
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
-  dirMapping(path: string, list: ResourceList) {
+  dirMapping(path: string, list: any) {
     if (this.dataMap.get(path)) { return; }
     let str: string[] = [];
     for (const item of list.items) {
@@ -159,14 +161,14 @@ export class DirTreeViewComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.apiService.getResource('/', '&sort=name')
-      .subscribe((data: Resource) => {
+  ngOnInit() {/*
+    this.apiService.getResource('/', this.currentUser)
+      .subscribe((data: any) => {
         this.resources = { ... data };
         this.rootLevelNodes.push(this.resources.path);
         console.log(this.rootLevelNodes);
         console.log(this.resources);
-        this.dirMapping(this.resources.path, this.resources._embedded);
+        this.dirMapping(this.resources.path, this.currentUser);
         this.dataSource.data = this.database.initialData(this.rootLevelNodes, new Map<string, string[]>(this.dataMap));
         console.log(this.dataMap);
 
@@ -174,15 +176,15 @@ export class DirTreeViewComponent implements OnInit {
           this.updateData(item);
         }
 
-      });
+      });*/
   }
 
 
   updateData(path: string) {
     this.apiService.getResource(path, '&sort=name')
-      .subscribe((data: Resource) => {
+      .subscribe((data: any) => {
         this.resources = { ... data };
-        this.dirMapping(this.resources.path, this.resources._embedded);
+        this.dirMapping(this.resources.path, this.currentUser);
         this.database.addNode(path, this.dataMap.get(path));
 
         for (const item of this.dataMap.get(this.resources.path)) {
