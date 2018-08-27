@@ -74,11 +74,6 @@ export class ApiService {
   }
 
 
-  // Создает новую папку
-  createDir (path: string) {
-    return this.httpClient.put(this.apiCloud + '/resources?path=' + path, httpOptions);
-  }
-
    */
 
 
