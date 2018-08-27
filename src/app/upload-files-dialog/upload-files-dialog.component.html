@@ -1,14 +1,17 @@
 <!-- Диалог Загрузки файлов -->
 <label class="upload-button">
-  <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
-  выберите файл(ы)...
+  <input type="file" #file multiple>выберите файл(ы)...
+</label>
+
+<label class="upload-button">
+  <input type="file" #folderInput webkitDirectory (change)="log(folderInput.files)">выберите папку...
 </label>
 
 <div>
   <button mat-button (click)="onNoClick()">
     <mat-icon>cancel</mat-icon>&nbsp;Отмена
   </button>
-  <button mat-button (click)="startUpload()">
+  <button mat-button (click)="startUpload(file.files)">
     <mat-icon>cloud_upload</mat-icon>&nbsp;Загрузить
   </button>
 </div>

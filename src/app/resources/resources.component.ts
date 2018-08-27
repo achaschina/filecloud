@@ -66,6 +66,11 @@ export class ResourcesComponent implements OnInit {
     this.getResource();
   }
 
+  // Возвращает текущую папку
+  getCurrentPath(): string {
+    const result = this.currentdir;
+    return result;
+  }
   // Диалог создания новой папки
   openNewDirDialog(): void {
     const dialogRef = this.dialog.open(NewDirDialogComponent, {
@@ -89,7 +94,12 @@ export class ResourcesComponent implements OnInit {
   // Диалог загрузки файлов
   openUploadDialog(): void {
     const dialogRef = this.dialog.open(UploadFilesDialogComponent, {
-      width: '500px'
+      width: '500px',
+      data: { path: this.currentdir }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getResource();
     });
   }
 
@@ -104,7 +114,7 @@ export class ResourcesComponent implements OnInit {
           this.resources[item].updated = new Date(this.resources[item].updated);
           this.dirItems.push(this.resources[item]);
         }
-        // console.log(this.dirItems);
+        console.log(this.dirItems);
         this.dirTable = new MatTableDataSource(this.dirItems);
         this.dirTable.sort = this.sort;
         // console.log(this.dirTable);
@@ -160,6 +170,12 @@ export class ResourcesComponent implements OnInit {
     const numSelected = this.selection.selected.length;
     const numRows = this.dirTable.data.length;
     return numSelected === numRows;
+  }
+
+  // Тип файла -> Иконка
+  getNameByType(type) {
+    if (type === 'dir') { return 'dir'; }
+    return 'anyfile';
   }
 
   masterToggle() {

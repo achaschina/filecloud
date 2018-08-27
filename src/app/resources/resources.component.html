@@ -253,7 +253,7 @@
           <td mat-cell *matCellDef="let item" (contextmenu)="menuTrigger.openMenu()">
             <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
             <div (dblclick)="goPath(item.name, item.type)" align="middle">
-              <img src='../../assets/images/{{item.type}}.png' height="30" width="30" align="middle">
+              <img src='../../assets/images/{{getNameByType(item.type)}}.png' height="30" width="30" align="middle">
             </div>
           </td>
         </ng-container>
