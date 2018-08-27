@@ -26,6 +26,7 @@ export class ApiService {
   private methodList = 'list/';
   private methodCreateFolder = 'createfolder';
   private methodUpload = 'upload';
+  private methodUploadFolder = 'uploadfolder';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -54,7 +55,7 @@ export class ApiService {
   }
 
   // Загрузка файла
-  uploadFiles (files, path) {
+  uploadFiles (files, path, currentUser) {
     console.log(files);
     const putUrl = this.apiCloud + this.section + this.methodUpload;
     const formData = new FormData();
@@ -62,7 +63,19 @@ export class ApiService {
       formData.append('file', file,  file.name);
     }
     formData.append('filePath', path);
-    formData.append('email', 'admin@mail.com');
+    formData.append('email', currentUser);
+    return this.httpClient.post(putUrl, formData);
+  }
+
+  // Загрузка папки
+  uploadFolder (files, path, currentUser) {
+    const putUrl = this.apiCloud + this.section + this.methodUploadFolder;
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append('file', file, file.name);
+    }
+    formData.append('filePath', path);
+    formData.append('email', currentUser);
     return this.httpClient.post(putUrl, formData);
   }
 

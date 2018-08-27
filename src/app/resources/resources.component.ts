@@ -91,9 +91,17 @@ export class ResourcesComponent implements OnInit {
   }
 
   // Загрузка файлов
-  startUpload(files): void {
+  filesUpload(files): void {
     console.log(files);
-    this.apiService.uploadFiles(files, this.currentdir).subscribe(
+    this.apiService.uploadFiles(files, this.currentdir, this.currentUser).subscribe(
+      (data) => this.getResource()
+    );
+  }
+
+  // Загрузка папки
+  folderUpload(files): void {
+    console.log(files);
+    this.apiService.uploadFolder(files, this.currentdir, this.currentUser).subscribe(
       (data) => this.getResource()
     );
   }

@@ -22,12 +22,12 @@
           <button mat-menu-item (click)="file.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить файлы...</span>
-            <input type="file" #file multiple (change) = "startUpload(file.files)">
+            <input type="file" #file multiple (change) = "filesUpload(file.files)">
           </button>
           <button mat-menu-item (click)="folderInput.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить папку...</span>
-            <input type="file" #folderInput webkitDirectory (change)="log(folderInput.files)">
+            <input type="file" #folderInput webkitDirectory (change)="folderUpload(folderInput.files)">
           </button>
         </mat-menu>
       </mat-chip-list>
@@ -103,12 +103,12 @@
             <button mat-menu-item (click)="file.click()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить файлы...</span>
-              <input type="file" #file multiple (change) = "startUpload(file.files)">
+              <input type="file" #file multiple (change) = "filesUpload(file.files)">
             </button>
             <button mat-menu-item (click)="folderInput.click()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить папку...</span>
-              <input type="file" #folderInput webkitDirectory (change)="log(folderInput.files)">
+              <input type="file" #folderInput webkitDirectory (change)="folderUpload(folderInput.files)">
             </button>
           </mat-menu>
 
