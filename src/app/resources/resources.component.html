@@ -19,13 +19,15 @@
             <span>Новая папка</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="openUploadDialog()">
+          <button mat-menu-item (click)="file.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить файлы...</span>
+            <input type="file" #file multiple (change) = "startUpload(file.files)">
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="folderInput.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить папку...</span>
+            <input type="file" #folderInput webkitDirectory (change)="log(folderInput.files)">
           </button>
         </mat-menu>
       </mat-chip-list>
@@ -98,13 +100,15 @@
               <span>Новая папка</span>
             </button>
             <mat-divider></mat-divider>
-            <button mat-menu-item (click)="openUploadDialog()">
+            <button mat-menu-item (click)="file.click()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить файлы...</span>
+              <input type="file" #file multiple (change) = "startUpload(file.files)">
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="folderInput.click()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить папку...</span>
+              <input type="file" #folderInput webkitDirectory (change)="log(folderInput.files)">
             </button>
           </mat-menu>
 

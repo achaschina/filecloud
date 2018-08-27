@@ -7,9 +7,8 @@ import { ApiService } from '../../services/api.service';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UploadFilesDialogComponent } from '../upload-files-dialog/upload-files-dialog.component';
 import { FormControl } from '@angular/forms';
-import {Resource} from '../../models/IResource';
+import { Resource } from '../../models/IResource';
 
 export interface PathElement {
   id: number;
@@ -91,16 +90,12 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  // Диалог загрузки файлов
-  openUploadDialog(): void {
-    const dialogRef = this.dialog.open(UploadFilesDialogComponent, {
-      width: '500px',
-      data: { path: this.currentdir }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.getResource();
-    });
+  // Загрузка файлов
+  startUpload(files): void {
+    console.log(files);
+    this.apiService.uploadFiles(files, this.currentdir).subscribe(
+      (data) => this.getResource()
+    );
   }
 
   // Получить ресурсы с сервера
@@ -138,7 +133,7 @@ export class ResourcesComponent implements OnInit {
     }
   }
 
-  // Текущий путь из массивы
+  // Текущий путь из массива
   public currentDir(index: number) {
     this.currentdir = '';
     for (const path of this.mapRoute) {

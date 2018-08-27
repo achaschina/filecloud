@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewDirDialogComponent } from './new-dir-dialog/new-dir-dialog.component';
-import { UploadFilesDialogComponent } from './upload-files-dialog/upload-files-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -23,7 +22,6 @@ import { MatProgressBarModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-import { NgxUploaderModule } from 'ngx-uploader';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
 
@@ -32,7 +30,6 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
     AppComponent,
     ResourcesComponent,
     NewDirDialogComponent,
-    UploadFilesDialogComponent,
     DirTreeViewComponent
   ],
   imports: [
@@ -58,12 +55,11 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
     MatCardModule,
     MatSlideToggleModule,
     MatChipsModule,
-    NgxUploaderModule,
     MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [NewDirDialogComponent, UploadFilesDialogComponent]
+  entryComponents: [NewDirDialogComponent]
 })
 
 export class AppModule { }
