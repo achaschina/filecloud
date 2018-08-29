@@ -109,7 +109,8 @@ export class ResourcesComponent implements OnInit {
 
   // Скачивание файла
   downloadFile(): void {
-    this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
+    this.selectedFile.type === 'dir' ? this.apiService.downloadFolder(this.selectedFile.path, this.currentUser) :
+                                        this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
   }
 
   // Получить ресурсы с сервера

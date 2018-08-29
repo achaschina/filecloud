@@ -27,7 +27,8 @@ export class ApiService {
   private methodCreateFolder = 'createfolder';
   private methodUpload = 'upload';
   private methodUploadFolder = 'uploadfolder';
-  private methodDownload = 'download/'
+  private methodDownload = 'download/';
+  private methodDownloadFolder = 'downloadfolder/';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -87,6 +88,16 @@ export class ApiService {
     window.open(getUrl);
     return this.httpClient.get(getUrl);
   }
+
+  // Скачивание папки
+  downloadFolder(folder, currentUser) {
+    const getUrl = this.apiCloud + this.sectionFiles + this.methodDownloadFolder + currentUser + folder;
+    console.log(getUrl);
+    window.open(getUrl);
+    return this.httpClient.get(getUrl);
+  }
+
+
 
   /*
     В разработке
