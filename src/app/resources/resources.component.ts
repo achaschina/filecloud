@@ -35,6 +35,7 @@ export class ResourcesComponent implements OnInit {
   resources: Resource[] = [];
   dirItems: Resource[] = [];
   dirTable;
+  selectedFile: Resource;
 
   private dir = '/';
 
@@ -104,6 +105,11 @@ export class ResourcesComponent implements OnInit {
     this.apiService.uploadFolder(files, this.currentdir, this.currentUser).subscribe(
       (data) => this.getResource()
     );
+  }
+
+  // Скачивание файла
+  downloadFile(): void {
+    this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
   }
 
   // Получить ресурсы с сервера
@@ -185,6 +191,12 @@ export class ResourcesComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
        this.dirTable.data.forEach(row => this.selection.select(row));
+  }
+
+  // Клик по файлу
+  selectFile(file: Resource): void {
+    this.selectedFile = file;
+    console.log(this.selectedFile);
   }
 
   // Вывод в консоль отладочной информации

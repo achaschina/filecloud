@@ -25,8 +25,8 @@ export class DynamicDatabase {
   initialData(rootLevelNodes: string[], dataMap: Map<string, string[]>): DynamicFlatNode[] {
     this.rootLevelNodes = rootLevelNodes;
     this.dataMap = dataMap;
-    console.log(this.rootLevelNodes);
-    console.log(this.dataMap);
+   // console.log(this.rootLevelNodes);
+   // console.log(this.dataMap);
     return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
   }
 
@@ -168,14 +168,14 @@ export class DirTreeViewComponent implements OnInit {
       .subscribe((data: any) => {
         this.resources = { ... data };
         this.rootLevelNodes.push('Мой диск:/');
-        console.log(this.rootLevelNodes);
+       // console.log(this.rootLevelNodes);
         // console.log(this.resources);
         this.dirMapping('Мой диск:/', this.resources);
         this.dataSource.data = this.database.initialData(this.rootLevelNodes, new Map<string, string[]>(this.dataMap));
-        console.log(this.dataMap);
+       // console.log(this.dataMap);
 
         for (const item of this.dataMap.get('Мой диск:/')) {
-          console.log(item);
+        //  console.log(item);
           this.updateData(item);
         }
 
