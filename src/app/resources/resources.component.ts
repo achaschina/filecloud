@@ -109,6 +109,10 @@ export class ResourcesComponent implements OnInit {
 
   // Скачивание файла
   downloadFile(): void {
+    if (!this.selection.isEmpty()) {
+      this.apiService.downloadFiles(this.selection, this.currentdir, this.currentUser);
+      return;
+    }
     this.selectedFile.type === 'dir' ? this.apiService.downloadFolder(this.selectedFile.path, this.currentUser) :
                                         this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
   }

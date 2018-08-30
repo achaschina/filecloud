@@ -29,6 +29,8 @@ export class ApiService {
   private methodUploadFolder = 'uploadfolder';
   private methodDownload = 'download/';
   private methodDownloadFolder = 'downloadfolder/';
+  private methodDownloadFiles = 'downloadfiles';
+  private methodDownloadAttache = 'downloadattache/';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -87,6 +89,22 @@ export class ApiService {
     console.log(getUrl);
     window.open(getUrl);
     return this.httpClient.get(getUrl);
+  }
+
+  // Скачивание группы файлов\папок
+  downloadFiles(files, path: string, currentUser) {
+    console.log(files._selected);
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodDownloadFiles;
+    const downloadUrl = this.apiCloud + this.sectionFiles + this.methodDownloadAttache + currentUser;
+    const formData = new FormData();
+    formData.append('folderPath', path);
+    formData.append('email', currentUser);
+    for (const file of files._selected) {
+      console.log(file.name, file.path);
+      formData.append('files', file.path);
+    }
+    this.httpClient.post(putUrl, formData).subscribe(
+      (data) =>  window.open(downloadUrl));
   }
 
   // Скачивание папки
