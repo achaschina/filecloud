@@ -31,7 +31,7 @@ export class ApiService {
   private methodDownloadFolder = 'downloadfolder/';
   private methodDownloadFiles = 'downloadfiles';
   private methodDownloadAttache = 'downloadattache/';
-
+  private methodDropFiles = 'dropfiles';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -115,6 +115,14 @@ export class ApiService {
     return this.httpClient.get(getUrl);
   }
 
+  dropFile(file, currentUser) {
+    console.log(file.path);
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
+    const formData = new FormData();
+    formData.append('email', currentUser);
+    formData.append('files', file.path);
+    return this.httpClient.post(putUrl, formData);
+  }
 
 
   /*

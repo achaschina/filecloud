@@ -161,7 +161,7 @@
                 <mat-icon>file_copy</mat-icon>
                 <span>Создать копию</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="downloadFile()">
                 <mat-icon>cloud_download</mat-icon>
                 <span>Скачать</span>
               </button>
@@ -221,7 +221,7 @@
           <mat-icon>cloud_download</mat-icon>
           <span>Скачать</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="dropFile()">
           <mat-icon>delete</mat-icon>
           <span>Удалить</span>
         </button>

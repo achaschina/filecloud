@@ -117,6 +117,16 @@ export class ResourcesComponent implements OnInit {
                                         this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
   }
 
+  // Удаление файла
+  dropFile(): void {
+    if (!this.selection.isEmpty()) {
+      return;
+    }
+    this.apiService.dropFile(this.selectedFile, this.currentUser).subscribe(
+      (data) => this.getResource()
+    );
+  }
+
   // Получить ресурсы с сервера
   public getResource() {
     this.apiService.getResource(this.currentdir, this.currentUser)
