@@ -1,0 +1,4 @@
+npm install
+
+
+ng build
