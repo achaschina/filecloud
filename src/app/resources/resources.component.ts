@@ -120,6 +120,9 @@ export class ResourcesComponent implements OnInit {
   // Удаление файла
   dropFile(): void {
     if (!this.selection.isEmpty()) {
+      this.apiService.dropFiles(this.selection, this.currentUser).subscribe(
+        (data) => this.getResource()
+      );
       return;
     }
     this.apiService.dropFile(this.selectedFile, this.currentUser).subscribe(

@@ -115,12 +115,24 @@ export class ApiService {
     return this.httpClient.get(getUrl);
   }
 
+  // Удаление файла
   dropFile(file, currentUser) {
     console.log(file.path);
     const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
     const formData = new FormData();
     formData.append('email', currentUser);
     formData.append('files', file.path);
+    return this.httpClient.post(putUrl, formData);
+  }
+
+  dropFiles(files, currentUser) {
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
+    const formData = new FormData();
+    formData.append('email', currentUser);
+    for (const file of files._selected) {
+      console.log(file.name, file.path);
+      formData.append('files', file.path);
+    }
     return this.httpClient.post(putUrl, formData);
   }
 
