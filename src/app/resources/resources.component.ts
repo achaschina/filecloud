@@ -123,6 +123,7 @@ export class ResourcesComponent implements OnInit {
       this.apiService.dropFiles(this.selection, this.currentUser).subscribe(
         (data) => this.getResource()
       );
+      this.selection.clear();
       return;
     }
     this.apiService.dropFile(this.selectedFile, this.currentUser).subscribe(
