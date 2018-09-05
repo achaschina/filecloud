@@ -144,7 +144,7 @@
                 <mat-icon>grade</mat-icon>
                 <span>Добавить пометку</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="openRenameDialog()">
                 <mat-icon>create</mat-icon>
                 <span>Переименовать...</span>
               </button>
@@ -200,7 +200,7 @@
           <mat-icon>grade</mat-icon>
           <span>Добавить пометку</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openRenameDialog()">
           <mat-icon>create</mat-icon>
           <span>Переименовать...</span>
         </button>

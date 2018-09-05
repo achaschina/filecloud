@@ -6,6 +6,7 @@ import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
+import { RenameDialogComponent } from "../rename-dialog/rename-dialog.component";
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { Resource } from '../../models/IResource';
@@ -91,6 +92,25 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+  openRenameDialog(): void{
+    const dialogRef = this.dialog.open(RenameDialogComponent, {
+      width: '500px',
+      data: { path: this.newDirPath  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+      if (result !== undefined) {
+        this.newDirPath = result;
+        // console.log(this.currentdir + this.newDirPath);
+        this.apiService.renameItem(this.selectedFile.path, this.currentUser, this.newDirPath).subscribe(
+          (data) => this.getResource()
+        );
+        this.getResource();
+      }
+    });
+  }
+
   // Загрузка файлов
   filesUpload(files): void {
     console.log(files);
@@ -127,7 +147,7 @@ export class ResourcesComponent implements OnInit {
       this.selection.clear();
       return;
     }
-    this.apiService.dropFile(this.selectedFile, this.currentUser).subscribe(
+    this.apiService.dropFiles(this.selectedFile, this.currentUser).subscribe(
       (data) => this.getResource()
     );
   }

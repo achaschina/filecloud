@@ -12,6 +12,12 @@ export interface FolderParams {
   email: string;
 }
 
+export interface RenameParams {
+  path: string;
+  email: string;
+  newName: string;
+}
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -32,6 +38,7 @@ export class ApiService {
   private methodDownloadFiles = 'downloadfiles';
   private methodDownloadAttache = 'downloadattache/';
   private methodDropFiles = 'dropfiles';
+  private methodRename = 'rename';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -115,14 +122,22 @@ export class ApiService {
     return this.httpClient.get(getUrl);
   }
 
-  // Удаление файла
-  dropFile(file, currentUser) {
-    console.log(file.path);
-    const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
-    const formData = new FormData();
-    formData.append('email', currentUser);
-    formData.append('files', file.path);
-    return this.httpClient.post(putUrl, formData);
+  // Переименование файла\папки
+  renameItem(file, currentUser: string, newName: string){
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodRename;
+    const renameFile: RenameParams = {
+      path: file,
+      email: currentUser,
+      newName: newName
+    };
+    return this.httpClient.post<RenameParams>(putUrl, renameFile, {
+      headers: { 'Content-Type': 'application/json' },
+      params: {
+        path: file,
+        email: currentUser,
+        newName: newName
+      }
+    });
   }
 
   dropFiles(files, currentUser) {

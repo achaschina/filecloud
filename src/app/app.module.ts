@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewDirDialogComponent } from './new-dir-dialog/new-dir-dialog.component';
+import { RenameDialogComponent } from "./rename-dialog/rename-dialog.component";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -59,7 +60,7 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [NewDirDialogComponent]
+  entryComponents: [NewDirDialogComponent, RenameDialogComponent]
 })
 
 export class AppModule { }

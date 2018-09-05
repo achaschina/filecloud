@@ -1,0 +1,13 @@
+<!-- Диалог Новая папка -->
+<div>
+  <h3>Переименовать</h3>
+  <mat-form-field>
+    <mat-label>Новое имя:</mat-label>
+    <input [(ngModel)]="data.path" matInput>
+  </mat-form-field>
+</div>
+
+<div class="button">
+  <button mat-button (click)="onNoClick()"><mat-icon>cancel</mat-icon>&nbsp;Отмена</button>
+  <button mat-button (click)="onClick()"><mat-icon>done</mat-icon>&nbsp;Переименовать</button>
+</div>
