@@ -95,7 +95,7 @@ export class ApiService {
   downloadFiles(files, path: string, currentUser) {
     console.log(files._selected);
     const putUrl = this.apiCloud + this.sectionFiles + this.methodDownloadFiles;
-    const downloadUrl = this.apiCloud + this.sectionFiles + this.methodDownloadAttache + currentUser;
+    const downloadUrl = this.apiCloud + this.sectionFiles + this.methodDownloadAttache + currentUser + '/temp/attachment.zip';
     const formData = new FormData();
     formData.append('folderPath', path);
     formData.append('email', currentUser);

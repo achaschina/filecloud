@@ -107,17 +107,18 @@ export class ResourcesComponent implements OnInit {
     );
   }
 
-  // Скачивание файла
+  // Скачивание файла\группы файлов\папок
   downloadFile(): void {
     if (!this.selection.isEmpty()) {
       this.apiService.downloadFiles(this.selection, this.currentdir, this.currentUser);
+      this.selection.clear();
       return;
     }
     this.selectedFile.type === 'dir' ? this.apiService.downloadFolder(this.selectedFile.path, this.currentUser) :
                                         this.apiService.downloadFile(this.selectedFile.path, this.currentUser);
   }
 
-  // Удаление файла
+  // Удаление файла\группы файлов\папок
   dropFile(): void {
     if (!this.selection.isEmpty()) {
       this.apiService.dropFiles(this.selection, this.currentUser).subscribe(
