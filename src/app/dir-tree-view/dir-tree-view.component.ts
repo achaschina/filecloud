@@ -183,6 +183,7 @@ export class DirTreeViewComponent implements OnInit {
   }
 
   updateData(path: string) {
+    (path === 'Мой диск:/') ? path = '/' : path = path;
     this.apiService.getResource(path, this.currentUser)
       .subscribe((data: any) => {
         this.resources = { ... data };
@@ -196,7 +197,7 @@ export class DirTreeViewComponent implements OnInit {
 
   // Обрезать имя папки
   getName(item: any) {
-    if (item.toString() === 'disk:/') { return 'Мой диск'; }
+    if (item.toString() === 'Мой диск:/') { return 'Мой диск'; }
     const name: string[] = item.toString().split('/');
     return name[name.length - 1];
   }

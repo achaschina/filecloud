@@ -31,7 +31,8 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
     AppComponent,
     ResourcesComponent,
     NewDirDialogComponent,
-    DirTreeViewComponent
+    DirTreeViewComponent,
+    RenameDialogComponent
   ],
   imports: [
     BrowserModule,

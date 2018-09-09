@@ -141,13 +141,13 @@ export class ResourcesComponent implements OnInit {
   // Удаление файла\группы файлов\папок
   dropFile(): void {
     if (!this.selection.isEmpty()) {
-      this.apiService.dropFiles(this.selection, this.currentUser).subscribe(
+      this.apiService.dropFiles(this.selection, this.currentUser, false).subscribe(
         (data) => this.getResource()
       );
       this.selection.clear();
       return;
     }
-    this.apiService.dropFiles(this.selectedFile, this.currentUser).subscribe(
+    this.apiService.dropFiles(this.selectedFile, this.currentUser, true).subscribe(
       (data) => this.getResource()
     );
   }

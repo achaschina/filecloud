@@ -5,6 +5,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Resource} from "../models/IResource";
 
 
 export interface FolderParams {
@@ -140,13 +141,17 @@ export class ApiService {
     });
   }
 
-  dropFiles(files, currentUser) {
+  dropFiles(files, currentUser, oneItem: boolean) {
     const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
     const formData = new FormData();
     formData.append('email', currentUser);
-    for (const file of files._selected) {
-      console.log(file.name, file.path);
-      formData.append('files', file.path);
+
+    if (oneItem) {
+      formData.append('files', files.path);
+    } else {
+      for (const file of files._selected) {
+        formData.append('files', file.path);
+      }
     }
     return this.httpClient.post(putUrl, formData);
   }
