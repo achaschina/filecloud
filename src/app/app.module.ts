@@ -25,6 +25,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
+import { MoveToDialogComponent } from "./move-to-dialog/move-to-dialog.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
     ResourcesComponent,
     NewDirDialogComponent,
     DirTreeViewComponent,
-    RenameDialogComponent
+    RenameDialogComponent,
+    MoveToDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { DirTreeViewComponent } from './dir-tree-view/dir-tree-view.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [NewDirDialogComponent, RenameDialogComponent]
+  entryComponents: [NewDirDialogComponent, RenameDialogComponent, MoveToDialogComponent]
 })
 
 export class AppModule { }

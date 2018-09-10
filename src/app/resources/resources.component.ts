@@ -7,6 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { MatDialog, MatMenuTrigger, MatSort, MatTableDataSource } from '@angular/material';
 import { NewDirDialogComponent } from '../new-dir-dialog/new-dir-dialog.component';
 import { RenameDialogComponent } from "../rename-dialog/rename-dialog.component";
+import { MoveToDialogComponent } from "../move-to-dialog/move-to-dialog.component";
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { Resource } from '../../models/IResource';
@@ -93,6 +94,7 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+  // Открыть диалог переименования
   openRenameDialog(): void{
     const dialogRef = this.dialog.open(RenameDialogComponent, {
       width: '500px',
@@ -109,6 +111,14 @@ export class ResourcesComponent implements OnInit {
         );
         this.getResource();
       }
+    });
+  }
+
+  // Открыть диалог перемещения
+  openMoveToDialog(): void{
+    const dialogRef = this.dialog.open(MoveToDialogComponent, {
+      width: '500px',
+      data: { path: this.newDirPath  }
     });
   }
 
@@ -228,6 +238,7 @@ export class ResourcesComponent implements OnInit {
     return 'anyfile';
   }
 
+  // Установить способ сортировки
   setSort(column: string): void {
     if (column === 'name') {
       this.currentSort = this.currentSort === 'fileasc' ? 'filedesc' : 'fileasc';

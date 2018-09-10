@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RenameDialogComponent } from './rename-dialog.component';
+import { MoveToDialogComponent } from './move-to-dialog.component';
 
 describe('MoveToDialogComponent', () => {
-  let component: RenameDialogComponent;
-  let fixture: ComponentFixture<RenameDialogComponent>;
+  let component: MoveToDialogComponent;
+  let fixture: ComponentFixture<MoveToDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RenameDialogComponent ]
+      declarations: [ MoveToDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RenameDialogComponent);
+    fixture = TestBed.createComponent(MoveToDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

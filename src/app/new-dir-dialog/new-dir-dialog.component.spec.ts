@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewDirDialogComponent } from './new-dir-dialog.component';
 
-describe('RenameDialogComponent', () => {
+describe('MoveToDialogComponent', () => {
   let component: NewDirDialogComponent;
   let fixture: ComponentFixture<NewDirDialogComponent>;
 

@@ -1,0 +1,12 @@
+<!-- Диалог Новая папка -->
+<div style="overflow: auto">
+  <h3>Переместить\Копировать в...</h3>
+  <mat-drawer-container autosize>
+    <app-dir-tree></app-dir-tree>
+  </mat-drawer-container>
+</div>
+
+<div class="button">
+  <button mat-button (click)="onNoClick()"><mat-icon>cancel</mat-icon>&nbsp;Отмена</button>
+  <button mat-button (click)="onClick()"><mat-icon>done</mat-icon>&nbsp;Переместить\Копировать</button>
+</div>
