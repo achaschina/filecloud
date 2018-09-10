@@ -20,7 +20,8 @@ export class MoveToDialogComponent implements OnInit {
   constructor( public dialogRef: MatDialogRef<MoveToDialogComponent>,
                @Inject (MAT_DIALOG_DATA) public data: any) { }
 
-  onClick() {
+  onClick(path: string) {
+    this.data.path = path;
     this.dialogRef.close(this.data.path);
   }
   onNoClick() {

@@ -123,6 +123,22 @@ export class ResourcesComponent implements OnInit {
       width: '500px',
       data: { path: this.newDirPath  }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.newDirPath = result;
+        if (!this.selection.isEmpty()){
+          this.apiService.moveFiles(this.newDirPath, this.selection, this.currentUser, false).subscribe(
+            (data) => this.getResource()
+          );
+          this.selection.clear();
+          return;
+        }
+        this.apiService.moveFiles(this.newDirPath, this.selectedFile.path, this.currentUser, true).subscribe(
+          (data) => this.getResource()
+        );
+      }
+    });
   }
 
   // Загрузка файлов

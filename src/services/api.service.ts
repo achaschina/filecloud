@@ -40,6 +40,7 @@ export class ApiService {
   private methodDownloadAttache = 'downloadattache/';
   private methodDropFiles = 'dropfiles';
   private methodRename = 'rename';
+  private methodMove = 'movefiles';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -141,6 +142,7 @@ export class ApiService {
     });
   }
 
+  // Удаление папок\файлов
   dropFiles(files, currentUser, oneItem: boolean) {
     const putUrl = this.apiCloud + this.sectionFiles + this.methodDropFiles;
     const formData = new FormData();
@@ -153,6 +155,24 @@ export class ApiService {
         formData.append('files', file.path);
       }
     }
+    return this.httpClient.post(putUrl, formData);
+  }
+
+  // Перемещение файлов\папок
+  moveFiles(pathTo: string, files, currentUser, oneItem: boolean){
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodMove;
+    const formData = new FormData();
+    formData.append('folderPath', pathTo);
+    formData.append('email', currentUser);
+
+    if (oneItem) {
+      formData.append('files', files);
+    } else {
+      for (const file of files._selected) {
+        formData.append('files', file.path);
+      }
+    }
+
     return this.httpClient.post(putUrl, formData);
   }
 
