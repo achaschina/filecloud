@@ -164,7 +164,7 @@ export class DirTreeViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.getResource('/', this.currentUser)
+    this.apiService.getResource('/', this.currentUser, '')
       .subscribe((data: any) => {
         this.resources = { ... data };
         this.rootLevelNodes.push('Мой диск:/');
@@ -184,7 +184,7 @@ export class DirTreeViewComponent implements OnInit {
 
   updateData(path: string) {
     (path === 'Мой диск:/') ? path = '/' : path = path;
-    this.apiService.getResource(path, this.currentUser)
+    this.apiService.getResource(path, this.currentUser, '')
       .subscribe((data: any) => {
         this.resources = { ... data };
         this.dirMapping(path, this.resources);

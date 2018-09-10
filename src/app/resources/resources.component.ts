@@ -45,6 +45,7 @@ export class ResourcesComponent implements OnInit {
 
   private currentdir = '/';
   private currentUser = 'admin@mail.com';
+  private currentSort = 'fileasc';
 
   newDirPath = '';
 
@@ -154,7 +155,7 @@ export class ResourcesComponent implements OnInit {
 
   // Получить ресурсы с сервера
   public getResource() {
-    this.apiService.getResource(this.currentdir, this.currentUser)
+    this.apiService.getResource(this.currentdir, this.currentUser, this.currentSort)
       .subscribe((data: Resource[]) => {
         this.resources = { ... data };
         this.dirItems = [];
@@ -225,6 +226,19 @@ export class ResourcesComponent implements OnInit {
   getNameByType(type) {
     if (type === 'dir') { return 'dir'; }
     return 'anyfile';
+  }
+
+  setSort(column: string): void {
+    if (column === 'name') {
+      this.currentSort = this.currentSort === 'fileasc' ? 'filedesc' : 'fileasc';
+    }
+    if (column === 'date') {
+      this.currentSort = this.currentSort === 'updateasc' ? 'updatedesc' : 'updateasc';
+    }
+    if (column === 'size') {
+      this.currentSort = this.currentSort === 'sizeasc' ? 'sizedesc' : 'sizeasc';
+    }
+    this.getResource();
   }
 
   masterToggle() {

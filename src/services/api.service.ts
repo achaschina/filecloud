@@ -44,8 +44,8 @@ export class ApiService {
   constructor(private httpClient: HttpClient) { }
 
   // Возвращает файлы и папки пользователя. Формат данных описан в ../models/IResource
-  getResource (path: string, email: string) {
-      const getUrl = this.apiCloud + this.sectionFiles + this.methodList + email + path;
+  getResource (path: string, email: string, sort: string) {
+      const getUrl = this.apiCloud + this.sectionFiles + this.methodList + email + '/' + sort + '/' + path;
       console.log(getUrl);
       return this.httpClient.get(getUrl);
   }
