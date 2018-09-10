@@ -1,6 +1,6 @@
 import { CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable, OnInit } from '@angular/core';
+import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
@@ -125,6 +125,9 @@ export class DynamicDataSource {
   providers: [DynamicDatabase]
 })
 export class DirTreeViewComponent implements OnInit {
+
+  @Output() pathed = new EventEmitter<string>();
+
   constructor(private database: DynamicDatabase,
               private apiService: ApiService) {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
@@ -133,6 +136,8 @@ export class DirTreeViewComponent implements OnInit {
   }
 
   private resources: Resource[];
+
+  public moveToPath: string;
 
   treeControl: FlatTreeControl<DynamicFlatNode>;
 
@@ -205,5 +210,11 @@ export class DirTreeViewComponent implements OnInit {
   // Вывод в консоль отладочной информации
   log(info: any) {
     console.log(info);
+  }
+
+  // Установить текущую дирректория для просмотра\копирования\перемещения
+  setPath(item: string){
+    this.moveToPath = item;
+    this.pathed.emit(this.moveToPath);
   }
 }

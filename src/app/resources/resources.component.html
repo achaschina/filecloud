@@ -33,7 +33,7 @@
       </mat-chip-list>
     </mat-toolbar>
 
-    <app-dir-tree></app-dir-tree>
+    <app-dir-tree (pathed)="onPathed($event)"></app-dir-tree>
 
     <mat-toolbar>
       <!-- Боковое меню -->

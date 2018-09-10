@@ -11,6 +11,7 @@ import { MoveToDialogComponent } from "../move-to-dialog/move-to-dialog.componen
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { Resource } from '../../models/IResource';
+import {DirTreeViewComponent} from "../dir-tree-view/dir-tree-view.component";
 
 export interface PathElement {
   id: number;
@@ -52,6 +53,8 @@ export class ResourcesComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatMenuTrigger) triggerContext: MatMenuTrigger;
+  @ViewChild(DirTreeViewComponent)
+  public dirTreeViewComponent: DirTreeViewComponent;
 
   constructor(
     private apiService: ApiService,
@@ -213,7 +216,6 @@ export class ResourcesComponent implements OnInit {
   public goPath(path: string, type: string) {
     if (type !== 'dir') { return; }
     path === '/' ? this.currentdir = path : this.currentdir = this.currentdir + path + this.dir;
-    // console.log(this.currentdir);
     this.getResource();
   }
 
@@ -262,6 +264,13 @@ export class ResourcesComponent implements OnInit {
   selectFile(file: Resource): void {
     this.selectedFile = file;
     console.log(this.selectedFile);
+  }
+
+  // Событие при клике по папке в Дереве папок
+  onPathed(path: string){
+    if (path === 'Мой диск:/') path = '/';
+    this.currentdir = path;
+    this.getResource();
   }
 
   // Вывод в консоль отладочной информации
