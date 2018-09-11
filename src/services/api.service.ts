@@ -84,11 +84,14 @@ export class ApiService {
   uploadFolder (files, path, currentUser) {
     const putUrl = this.apiCloud + this.sectionFiles + this.methodUploadFolder;
     const formData = new FormData();
+    console.log(files);
     for (const file of files) {
       formData.append('files', file, file.webkitRelativePath);
+
     }
     formData.append('folderPath', path);
     formData.append('email', currentUser);
+    console.log(path + ' ' + currentUser);
     return this.httpClient.post(putUrl, formData);
   }
 
@@ -149,6 +152,7 @@ export class ApiService {
     formData.append('email', currentUser);
 
     if (oneItem) {
+      console.log(files);
       formData.append('files', files.path);
     } else {
       for (const file of files._selected) {
@@ -182,10 +186,7 @@ export class ApiService {
   // Возвращает корзину
   getTrashResource (path: string, sort: string) {
     return this.httpClient.get<Resource>(this.apiCloud + '/trash/resources?path=' + path + this.limit + sort, httpOptions);
-  }
-
-
-   */
+  }*/
 
 
 }

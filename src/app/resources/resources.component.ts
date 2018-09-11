@@ -155,6 +155,7 @@ export class ResourcesComponent implements OnInit {
     this.apiService.uploadFolder(files, this.currentdir, this.currentUser).subscribe(
       (data) => this.getResource()
     );
+
   }
 
   // Скачивание файла\группы файлов\папок
@@ -180,6 +181,7 @@ export class ResourcesComponent implements OnInit {
     this.apiService.dropFiles(this.selectedFile, this.currentUser, true).subscribe(
       (data) => this.getResource()
     );
+
   }
 
   // Получить ресурсы с сервера
