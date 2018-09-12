@@ -221,6 +221,8 @@ export class ResourcesComponent implements OnInit {
         }
         console.log(this.dirItems);
         this.dirTable = new MatTableDataSource(this.dirItems);
+        this.selectedFile = undefined;
+        this.selection.clear();
         // this.dirTable.sort = this.sort;
         // console.log(this.dirTable);
         this.pathMapping();
