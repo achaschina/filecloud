@@ -3,9 +3,8 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Resource} from "../models/IResource";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 export interface FolderParams {
@@ -18,10 +17,6 @@ export interface RenameParams {
   email: string;
   newName: string;
 }
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +36,7 @@ export class ApiService {
   private methodDropFiles = 'dropfiles';
   private methodRename = 'rename';
   private methodMove = 'movefiles';
+  private methodCopy = 'copyfiles';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -116,7 +112,7 @@ export class ApiService {
       formData.append('files', file.path);
     }
     this.httpClient.post(putUrl, formData).subscribe(
-      (data) =>  window.open(downloadUrl));
+      () =>  window.open(downloadUrl));
   }
 
   // Скачивание папки
@@ -165,6 +161,24 @@ export class ApiService {
   // Перемещение файлов\папок
   moveFiles(pathTo: string, files, currentUser, oneItem: boolean){
     const putUrl = this.apiCloud + this.sectionFiles + this.methodMove;
+    const formData = new FormData();
+    formData.append('folderPath', pathTo);
+    formData.append('email', currentUser);
+
+    if (oneItem) {
+      formData.append('files', files);
+    } else {
+      for (const file of files._selected) {
+        formData.append('files', file.path);
+      }
+    }
+
+    return this.httpClient.post(putUrl, formData);
+  }
+
+  // Копирование папок\файлов
+  copyFiles(pathTo: string, files, currentUser, oneItem: boolean){
+    const putUrl = this.apiCloud + this.sectionFiles + this.methodCopy;
     const formData = new FormData();
     formData.append('folderPath', pathTo);
     formData.append('email', currentUser);
