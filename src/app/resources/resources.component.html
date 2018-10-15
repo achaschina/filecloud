@@ -6,12 +6,17 @@
     <!-- Дерево папок -->
 
     <mat-toolbar>
-      <img src='../../assets/images/logo.png' height="50" align="left"><h2><b>Диск</b></h2>
+      <img src='../../assets/images/logo.png' height="50" align="left">
+      <h2>
+        <b>Диск</b>
+      </h2>
     </mat-toolbar>
 
     <mat-toolbar>
       <mat-chip-list>
-        <mat-chip class="dir" [mat-menu-trigger-for]="menuCreate"><mat-icon>add</mat-icon>&nbsp;Создать</mat-chip>
+        <mat-chip class="dir" [mat-menu-trigger-for]="menuCreate">
+          <mat-icon>add</mat-icon>&nbsp;Создать
+        </mat-chip>
         <!-- Меню Создать -->
         <mat-menu #menuCreate="matMenu" [overlapTrigger]="false">
           <button mat-menu-item (click)="openNewDirDialog()">
@@ -22,12 +27,12 @@
           <button mat-menu-item (click)="file.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить файлы...</span>
-            <input type="file" #file multiple (change) = "filesUpload(file.files)">
+            <input type="file" #file multiple (change)="filesUpload(file.files)" hidden>
           </button>
           <button mat-menu-item (click)="folderInput.value = ''; folderInput.click()">
             <mat-icon>cloud_upload</mat-icon>
             <span>Загрузить папку...</span>
-            <input type="file" #folderInput webkitDirectory (change)="folderUpload(folderInput.files)">
+            <input type="file" #folderInput webkitDirectory (change)="folderUpload(folderInput.files)" hidden>
           </button>
         </mat-menu>
       </mat-chip-list>
@@ -38,20 +43,30 @@
     <mat-toolbar>
       <!-- Боковое меню -->
       <mat-toolbar-row>
-        <button mat-button><mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне</button>
+        <button mat-button (click)="availableToMe()">
+          <mat-icon>supervisor_account</mat-icon>&nbsp;&nbsp;&nbsp;Доступные мне
+        </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <button mat-button><mat-icon>access_time</mat-icon>&nbsp;&nbsp;&nbsp;Недавние</button>
+        <button mat-button>
+          <mat-icon>access_time</mat-icon>&nbsp;&nbsp;&nbsp;Недавние
+        </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <button mat-button><mat-icon>grade</mat-icon>&nbsp;&nbsp;&nbsp;Помеченные</button>
+        <button mat-button>
+          <mat-icon>grade</mat-icon>&nbsp;&nbsp;&nbsp;Помеченные
+        </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <button mat-button><mat-icon>delete</mat-icon>&nbsp;&nbsp;&nbsp;Корзина</button>
+        <button mat-button>
+          <mat-icon>delete</mat-icon>&nbsp;&nbsp;&nbsp;Корзина
+        </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
         <mat-divider></mat-divider>
-        <button mat-button> <mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Хранилище</button>
+        <button mat-button>
+          <mat-icon>cloud</mat-icon>&nbsp;&nbsp;&nbsp;Хранилище
+        </button>
       </mat-toolbar-row>
 
     </mat-toolbar>
@@ -59,29 +74,14 @@
   </mat-drawer>
 
   <!-- Центральная часть -->
-
   <mat-drawer-container>
 
     <div class="example-sidenav-content">
 
       <!-- Панель инструментов -->
       <mat-toolbar>
-      <mat-toolbar-row>
-        <div class="search-field">
-          <!-- Панель поиска -->
-            <mat-form-field appearance="outline" class="search-field">
-              <mat-label>&nbsp;Поиск на диске</mat-label>
-              <mat-icon matPrefix>search</mat-icon>
-              <input matInput type="search" placeholder="Поиск на диске" [formControl]="searchControl" [matAutocomplete]="autoSearch">
-              <mat-autocomplete #autoSearch="matAutocomplete">
-                <mat-option *ngFor="let option of searchOptions" [value]="option">
-                  {{option.slice(0, option.length-1)}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          <button mat-icon-button><mat-icon>help</mat-icon></button>
-          <button mat-icon-button><mat-icon>settings</mat-icon></button>
-        </div>
+        <mat-toolbar-row>
+          <app-search-bar [dirItems]="dirItems" (dirTable)="getResourceFromChild($event)"></app-search-bar>
         </mat-toolbar-row>
 
         <mat-toolbar-row>
@@ -103,22 +103,23 @@
             <button mat-menu-item (click)="file.click()">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить файлы...</span>
-              <input type="file" #file multiple (change) = "filesUpload(file.files)">
+              <input type="file" #file multiple (change)="filesUpload(file.files)" hidden>
             </button>
             <button mat-menu-item (click)="folderInput1.value = ''; folderInput1.click();">
               <mat-icon>cloud_upload</mat-icon>
               <span>Загрузить папку...</span>
-              <input type="file" #folderInput1 webkitDirectory (change)="folderUpload(folderInput1.files)">
+              <input type="file" #folderInput1 webkitDirectory (change)="folderUpload(folderInput1.files)" hidden>
             </button>
           </mat-menu>
 
           <span class="example-spacer"></span>
 
           <!-- Дополнительные кнопки, скрыты, пока не выбраны папки -->
-          <div [style.visibility] = "selection.hasValue() ? 'visible' : 'hidden'">
+          <div [style.visibility]="selection.hasValue() ? 'visible' : 'hidden'">
             <button mat-icon-button>
-              <mat-icon>link</mat-icon>
+              <mat-icon (click)="isOpen = !isOpen"  cdkOverlayOrigin #trigger="cdkOverlayOrigin">link</mat-icon>
             </button>
+            <app-shared-overlay [isOpen]="isOpen" [trigger]="trigger"></app-shared-overlay>
             <button mat-icon-button [hidden]="false">
               <mat-icon>person_add</mat-icon>
             </button>
@@ -135,8 +136,67 @@
 
           <!-- Дополнительно меню -->
 
-            <mat-menu #anymenu="matMenu" [overlapTrigger]="false">
+          <mat-menu #anymenu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item>
+              <mat-icon>arrow_forward</mat-icon>
+              <span>Переместить в...</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>grade</mat-icon>
+              <span>Добавить пометку</span>
+            </button>
+            <button mat-menu-item (click)="openRenameDialog()">
+              <mat-icon>create</mat-icon>
+              <span>Переименовать...</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+              <mat-icon>info</mat-icon>
+              <span>Показать свойства</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>history</mat-icon>
+              <span>Управление версиями...</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>file_copy</mat-icon>
+              <span>Создать копию</span>
+            </button>
+            <button mat-menu-item (click)="downloadFile()">
+              <mat-icon>cloud_download</mat-icon>
+              <span>Скачать</span>
+            </button>
+          </mat-menu>
+
+          <button mat-icon-button color="basic" (click)="showFilesPropertiesForm();">
+            <mat-icon>info</mat-icon>
+          </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm">
+          <!-- Табличная часть -->
+          <div class="example-container mat-elevation-z8" id="tableView">
+            <!-- Контекстно меню -->
+            <mat-menu #contextmenu="matMenu" [overlapTrigger]="false">
               <button mat-menu-item>
+                <mat-icon>visibility</mat-icon>
+                <span>Предварительный просмотр</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>person_add</mat-icon>
+                <span>Совместный доступ</span>
+              </button>
+              <button mat-menu-item  (click)="openSharedPanel()">
+                  <mat-icon>link</mat-icon>
+                  <span>Включить доступ по ссылке</span>
+                </button>
+              <button mat-menu-item (click)="openMoveToDialog()">
                 <mat-icon>arrow_forward</mat-icon>
                 <span>Переместить в...</span>
               </button>
@@ -157,7 +217,7 @@
                 <mat-icon>history</mat-icon>
                 <span>Управление версиями...</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="copyToDialog();">
                 <mat-icon>file_copy</mat-icon>
                 <span>Создать копию</span>
               </button>
@@ -165,153 +225,194 @@
                 <mat-icon>cloud_download</mat-icon>
                 <span>Скачать</span>
               </button>
+              <button mat-menu-item (click)="dropFile()">
+                <mat-icon>delete</mat-icon>
+                <span>Удалить</span>
+              </button>
             </mat-menu>
 
-            <button mat-icon-button color="basic">
-            <mat-icon>info</mat-icon>
-          </button>
-        </mat-toolbar-row>
-      </mat-toolbar>
-    </div>
+            <table mat-table [dataSource]="dirTable" matSort matSortActive="name" matSortDirection="asc"
+              matSortDisableClear class="mat-elevation-z8" *ngIf="!showAvailable">
 
-    <mat-divider></mat-divider>
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
 
-    <!-- Табличная часть -->
-    <div class="example-container mat-elevation-z8" id = "tableView">
-      <!-- Контекстно меню -->
-      <mat-menu #contextmenu="matMenu" [overlapTrigger]="false">
-        <button mat-menu-item>
-          <mat-icon>visibility</mat-icon>
-          <span>Предварительный просмотр</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>person_add</mat-icon>
-          <span>Совместный доступ</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>link</mat-icon>
-          <span>Включить доступ по ссылке</span>
-        </button>
-        <button mat-menu-item (click)="openMoveToDialog()">
-          <mat-icon>arrow_forward</mat-icon>
-          <span>Переместить в...</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>grade</mat-icon>
-          <span>Добавить пометку</span>
-        </button>
-        <button mat-menu-item (click)="openRenameDialog()">
-          <mat-icon>create</mat-icon>
-          <span>Переименовать...</span>
-        </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item>
-          <mat-icon>info</mat-icon>
-          <span>Показать свойства</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>history</mat-icon>
-          <span>Управление версиями...</span>
-        </button>
-        <button mat-menu-item (click)="copyToDialog();">
-          <mat-icon>file_copy</mat-icon>
-          <span>Создать копию</span>
-        </button>
-        <button mat-menu-item (click)="downloadFile()">
-          <mat-icon>cloud_download</mat-icon>
-          <span>Скачать</span>
-        </button>
-        <button mat-menu-item (click)="dropFile()">
-          <mat-icon>delete</mat-icon>
-          <span>Удалить</span>
-        </button>
-      </mat-menu>
+              <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
 
-      <table mat-table [dataSource]="dirTable" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear class="mat-elevation-z8">
+              <!-- Type Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>
+                  <div align="middle" class="dir" (click)="goBack()">
+                    <img src='../../assets/images/back.png' height="30" width="30" align="middle">
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div (dblclick)="goPath(item.name, item.type)" align="middle">
+                    <img #overlayTarget src='../../assets/images/{{getNameByType(item.type)}}.png' height="30" width="30" align="middle">
+                  </div>
+                </td>
+              </ng-container>
 
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
+              <!-- Owner Column -->
+              <ng-container matColumnDef="owner">
+                <th mat-header-cell *matHeaderCellDef>
+                  <b>Владелец</b>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div class="noneselect">я</div>
+                </td>
+              </ng-container>
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header matSortStart="desc" (click)="setSort('name')">
+                  <div align="left">
+                    <b>По наименованию</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div (dblclick)="goPath(item.name, item.type)" class="noneselect">{{ item.name }}</div>
+                </td>
+                <!-- <app-share-files [isOpen1]="isOpen1" [trigger1]="trigger1"></app-share-files> -->
+              </ng-container>
 
-        <!-- Type Column -->
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>
-            <div align="middle" class="dir" (click)="goBack()">
-              <img src='../../assets/images/back.png' height="30" width="30" align="middle">
-            </div>
-          </th>
-          <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()">
-            <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-            <div (dblclick)="goPath(item.name, item.type)" align="middle">
-              <img src='../../assets/images/{{getNameByType(item.type)}}.png' height="30" width="30" align="middle">
-            </div>
-          </td>
-        </ng-container>
+              <!-- Last Modified Column -->
+              <ng-container matColumnDef="modified">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('date')">
+                  <div align="left">
+                    <b>По дате изменения</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
+                  <div class="noneselect">{{item.updated.toString().slice(0,24)}} я</div>
+                </td>
+              </ng-container>
 
-        <!-- Owner Column -->
-        <ng-container matColumnDef="owner">
-          <th mat-header-cell *matHeaderCellDef><b>Владелец</b></th>
-          <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()">
-            <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-            <div class="noneselect">я</div>
-          </td>
-        </ng-container>
+              <!-- File Size Column -->
+              <ng-container matColumnDef="size">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('size')">
+                  <div align="left">
+                    <b>Размер файла</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div class="noneselect" *ngIf="!item.folder">{{item.size}}</div>
+                </td>
+              </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header matSortStart = "desc" (click)="setSort('name')">
-            <div align="left"><b>По наименованию</b></div>
-          </th>
-          <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()">
-            <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-            <div (dblclick)="goPath(item.name, item.type)" class="noneselect">{{ item.name }}</div>
-          </td>
-        </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
 
-        <!-- Last Modified Column -->
-        <ng-container matColumnDef="modified">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('date')">
-            <div align="left"><b>По дате изменения</b></div>
-          </th>
-          <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()">
-            <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
-            <div class="noneselect">{{item.updated.toString().slice(0,24)}} я</div>
-          </td>
-        </ng-container>
+            <table mat-table [dataSource]="dirTableAvailable" matSort matSortActive="name" matSortDirection="asc"
+              matSortDisableClear class="mat-elevation-z8" *ngIf="showAvailable">
 
-        <!-- File Size Column -->
-        <ng-container matColumnDef="size">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('size')">
-            <div align="left"><b>Размер файла</b></div>
-          </th>
-          <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (mouseup)="log(item)">
-            <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
-            <div class="noneselect" *ngIf="!item.folder">{{item.size}}</div>
-          </td>
-        </ng-container>
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+              <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
 
+              <!-- Type Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>
+                  <div align="middle" class="dir" (click)="goBack()">
+                    <img src='../../assets/images/back.png' height="30" width="30" align="middle">
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div (dblclick)="goPath(item.name, item.type)" align="middle">
+                    <img src='../../assets/images/{{getNameByType(item.type)}}.png' height="30" width="30" align="middle">
+                  </div>
+                </td>
+              </ng-container>
 
+              <!-- Owner Column -->
+              <ng-container matColumnDef="owner">
+                <th mat-header-cell *matHeaderCellDef>
+                  <b>Владелец</b>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div class="noneselect">я</div>
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header matSortStart="desc" (click)="setSort('name')">
+                  <div align="left">
+                    <b>По наименованию</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div (dblclick)="goPath(item.name, item.type)" class="noneselect">{{ item.name }}</div>
+                </td>
+              </ng-container>
+
+              <!-- Last Modified Column -->
+              <ng-container matColumnDef="modified">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('date')">
+                  <div align="left">
+                    <b>По дате изменения</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu" disabled="true"></div>
+                  <div class="noneselect">{{item.updated.toString().slice(0,24)}} я</div>
+                </td>
+              </ng-container>
+
+              <!-- File Size Column -->
+              <ng-container matColumnDef="size">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('size')">
+                  <div align="left">
+                    <b>Размер файла</b>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let item" (contextmenu)="selectFile(item); menuTrigger.openMenu()" (click)="showFilesProperties(item)">
+                  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="contextmenu"></div>
+                  <div class="noneselect" *ngIf="!item.folder">{{item.size}}</div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsAvailable; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsAvailable;"></tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-3" *ngIf="visible">
+          <app-detail-form [currentFile]="itemsDetail" [fileName]="fileName" [firstState]="firstState"></app-detail-form>
+        </div>
+      </div>
     </div>
   </mat-drawer-container>
 </mat-drawer-container>
-
-
-

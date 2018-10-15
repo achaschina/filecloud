@@ -1,2 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.cdk-overlay-container .custom-backdropClass {
+    background-color: grey;
+    opacity: 0.4; 
+}
+
+button:focus {
+    outline: none;
+}
+
+.close-button {
+    float: right;
+}
+
+.button-row {
+    padding-top: 1em;
+    display: flex;
+    justify-content: space-between;
+  }
